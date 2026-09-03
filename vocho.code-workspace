@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "name": "Vocho",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      ".vercel": true
+    }
+  }
+}

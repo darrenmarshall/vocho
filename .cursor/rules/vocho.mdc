@@ -1,0 +1,12 @@
+---
+description: Vocho site source of truth, deploy path, and secrets
+alwaysApply: true
+---
+
+# Vocho
+
+- Git and Vercel root is this repo (`/Users/dpm/Documents/Code/vocho`). Do not treat Claude scratch workspaces as canonical.
+- Production is https://vocho.vercel.app. GitHub remote: `darrenmarshall/vocho`. Pushes to `main` deploy.
+- The live page is `vocho-mono.src.html` (`vercel.json` rewrites `/` to it). Edit that file for visual work. Keep `vocho.html` in sync when header, hero, or nav change.
+- `vocho.src.html`, `san-miguel-customs.*`, and `frag.html` are design directions, not production.
+- Never commit `.env`. `SITE_PASSWORD` lives in `.env` locally and in Vercel env vars.

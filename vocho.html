@@ -132,7 +132,7 @@ h3{ font-size: var(--t-h3); line-height: 1.25; }
   overflow: hidden;
   isolation: isolate;
   background: var(--noir);
-  margin: clamp(4.6rem, 8vh, 5.6rem) clamp(1.4rem, 3.4vw, 2.4rem) clamp(1.4rem, 3.4vw, 2.4rem);
+  margin: calc(1.7rem + 1.35rem + 1px) clamp(1.4rem, 3.4vw, 2.4rem) clamp(1.4rem, 3.4vw, 2.4rem);
   border-radius: .45rem;
 }
 .abre .ph{
@@ -171,9 +171,9 @@ h3{ font-size: var(--t-h3); line-height: 1.25; }
   display: flex; align-items: center; justify-content: space-between; gap: 1.25rem;
   padding: .85rem var(--pad);
   font-family: var(--sans);
-  color: var(--bone);
-  background: var(--noir);
-  border-bottom: 1px solid var(--line-d);
+  color: var(--ink);
+  background: #fff;
+  border-bottom: 1px solid var(--line);
 }
 .bar__mark{
   display: block;
@@ -191,9 +191,9 @@ h3{ font-size: var(--t-h3); line-height: 1.25; }
 .bar__nav a{
   font-size: var(--t-lab); font-weight: 500;
   letter-spacing: .1em; text-transform: uppercase;
-  opacity: .7; transition: opacity .25s ease;
+  color: var(--ink); transition: opacity .25s ease;
 }
-.bar__nav a:hover{ opacity: 1; }
+.bar__nav a:hover{ opacity: .55; }
 
 /* ── figure 1: the etymology, set as a book figure ───────── */
 .fig{
