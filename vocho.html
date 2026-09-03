@@ -1,0 +1,750 @@
+<meta charset="utf-8">
+<title>Vocho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..700&display=swap">
+
+<style id="assets">
+:root{
+  --i-hero:    url("hero.png");
+  --i-plate:   url("plate.jpg");
+  --i-cabin:   url("cabin.jpg");
+  --i-shelf:   url("shelf.jpg");
+  --i-primero: url("primero.jpg");
+}
+</style>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   VOCHO — San Miguel de Allende
+   A monograph, not a landing page. Limestone paper, photographs
+   as plates, serif text and grotesque structure. No accent
+   colour: every colour on the page comes from the photographs.
+   ═══════════════════════════════════════════════════════════ */
+
+:root{
+  --paper:   #E6E2DA;   /* cantera limestone */
+  --paper-2: #DCD7CD;
+  --ink:     #191813;
+  --ink-2:   #5A574E;
+  --ink-3:   #837F74;
+  --noir:    #100F0C;
+  --bone:    #E6E2DA;
+  --bone-2:  #98948A;
+  --line:    rgba(25,24,19,.17);
+  --line-d:  rgba(230,226,218,.19);
+
+  --sans: "Schibsted Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --serif:"Newsreader", "Iowan Old Style", Georgia, serif;
+
+  --t-h1:  clamp(1.35rem, 2.1vw, 1.9rem);
+  --t-h2:  clamp(1.5rem, 2.6vw, 2.35rem);
+  --t-h3:  clamp(1.0625rem, 1.35vw, 1.25rem);
+  --t-txt: clamp(1rem, 1.02vw, 1.0625rem);
+  --t-lab: .6875rem;
+  --t-cap: .8125rem;
+
+  --pad: clamp(1.25rem, 5vw, 5.5rem);
+  --max: 1440px;
+  --sec: clamp(4.5rem, 10vh, 8.5rem);
+
+  color-scheme: light;
+}
+
+*{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+[id]{ scroll-margin-top: 4.5rem; }
+
+body{
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: var(--t-txt);
+  font-weight: 400;
+  line-height: 1.68;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+button{ font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+:focus-visible{ outline: 1px solid var(--ink); outline-offset: 4px; }
+::selection{ background: var(--ink); color: var(--paper); }
+
+/* ── measure ─────────────────────────────────────────────── */
+.wrap{ max-width: var(--max); margin: 0 auto; padding-inline: var(--pad); }
+.sec{ padding-block: var(--sec); }
+.grid{ display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 clamp(1rem, 2vw, 2rem); }
+
+/* text sits off-centre, never in the middle of the page */
+.col{ grid-column: 1 / -1; }
+@media (min-width: 900px){
+  .col{ grid-column: 3 / 10; }
+  .col--right{ grid-column: 6 / 12; }
+  .col--wide{ grid-column: 2 / 12; }
+}
+
+/* ── type ────────────────────────────────────────────────── */
+.label{
+  font-family: var(--sans);
+  font-size: var(--t-lab);
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 clamp(1rem, 2vw, 1.6rem);
+}
+h1, h2, h3{ font-family: var(--sans); font-weight: 500; letter-spacing: -.014em; margin: 0; }
+h2{ font-size: var(--t-h2); line-height: 1.14; max-width: 20ch; text-wrap: balance; }
+h3{ font-size: var(--t-h3); line-height: 1.25; }
+
+.txt{ max-width: 62ch; }
+.txt p{ margin: 0 0 1.15em; }
+.txt p:last-child{ margin-bottom: 0; }
+.txt em{ font-style: italic; }
+.txt strong{ font-weight: 600; }
+.lead{ font-size: clamp(1.125rem, 1.5vw, 1.35rem); line-height: 1.5; max-width: 46ch; }
+.after-h2{ margin-top: clamp(1.5rem, 2.6vw, 2.2rem); }
+
+/* ── plates ──────────────────────────────────────────────── */
+.plate img, .plate .ph{ filter: saturate(.93) contrast(1.02); }
+.ph{ background-size: cover; background-position: 50% 50%; background-color: var(--noir); }
+.cap{
+  font-family: var(--sans);
+  font-size: var(--t-cap);
+  line-height: 1.45;
+  color: var(--ink-2);
+  margin: .7rem 0 0;
+  max-width: 46ch;
+}
+.cap b{ font-weight: 600; color: var(--ink); }
+
+.bleed{ width: 100%; }
+.bleed .ph{ height: clamp(320px, 62vh, 720px); }
+.bleed .cap{ max-width: var(--max); margin-inline: auto; padding-inline: var(--pad); padding-block: .7rem 0; }
+
+/* ── opening ─────────────────────────────────────────────── */
+.abre{
+  position: relative;
+  height: clamp(500px, calc(88vh - 5rem), 920px);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--noir);
+  margin: clamp(4.6rem, 8vh, 5.6rem) clamp(1.4rem, 3.4vw, 2.4rem) clamp(1.4rem, 3.4vw, 2.4rem);
+  border-radius: .45rem;
+}
+.abre .ph{
+  position: absolute; inset: 0;
+  background-image: var(--i-hero);
+  background-position: 50% 52%;
+  animation: creep 40s ease-in-out infinite alternate;
+}
+@keyframes creep{ from{ transform: scale(1.03); } to{ transform: scale(1.09); } }
+.abre::after{
+  content:""; position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(16,15,12,.52) 0%, rgba(16,15,12,.12) 12%, rgba(16,15,12,0) 22%),
+    linear-gradient(to top, rgba(16,15,12,.78) 0%, rgba(16,15,12,.18) 34%, rgba(16,15,12,0) 62%);
+}
+.abre__foot{
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  max-width: var(--max); margin-inline: auto;
+  padding: 0 var(--pad) clamp(1.75rem, 4vh, 3rem);
+  color: var(--bone);
+}
+.abre__line{
+  font-family: var(--sans); font-weight: 500;
+  font-size: var(--t-h1); line-height: 1.24; letter-spacing: -.012em;
+  max-width: 24ch; margin: 0;
+}
+.abre__meta{
+  font-family: var(--sans); font-size: var(--t-lab); font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--bone-2);
+  margin: .9rem 0 0;
+}
+
+/* ── header ──────────────────────────────────────────────── */
+.bar{
+  position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between; gap: 1.25rem;
+  padding: .85rem var(--pad);
+  font-family: var(--sans);
+  color: var(--bone);
+  background: var(--noir);
+  border-bottom: 1px solid var(--line-d);
+}
+.bar__mark{
+  display: block;
+  flex: 0 0 auto;
+  width: 4rem;
+  height: 1.35rem;
+  background: currentColor;
+  -webkit-mask: url("images/logo.svg") left center / contain no-repeat;
+  mask: url("images/logo.svg") left center / contain no-repeat;
+}
+.bar__nav{
+  display: flex; flex-wrap: wrap; justify-content: flex-end;
+  gap: .45rem 1.35rem;
+}
+.bar__nav a{
+  font-size: var(--t-lab); font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  opacity: .7; transition: opacity .25s ease;
+}
+.bar__nav a:hover{ opacity: 1; }
+
+/* ── figure 1: the etymology, set as a book figure ───────── */
+.fig{
+  border-top: 1px solid var(--line);
+  padding: clamp(1.75rem, 3.5vw, 2.75rem) 0 0;
+  margin-top: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+.fig__set{
+  font-family: var(--sans); font-weight: 500;
+  font-size: clamp(1.5rem, 3.4vw, 2.6rem);
+  line-height: 1.16; letter-spacing: -.02em;
+  color: var(--ink-3);
+}
+.fig__set b{ font-weight: 500; color: var(--ink); }
+
+.fig__eq{
+  display: inline-block; margin-top: .55rem; padding-top: .55rem;
+  border-top: 1px solid var(--ink);
+  color: var(--ink);
+}
+.fig .cap{ margin-top: 1.1rem; }
+
+/* ── the landscape ───────────────────────────────────────── */
+.tbl{ margin-top: clamp(2rem, 4vw, 3rem); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table{ width: 100%; border-collapse: collapse; min-width: 40rem; font-family: var(--sans); }
+caption{
+  text-align: left; padding: 0 0 .85rem;
+  font-size: var(--t-lab); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2);
+}
+th, td{ text-align: left; padding: .8rem 1.5rem .8rem 0; border-bottom: 1px solid var(--line); vertical-align: baseline; }
+thead th{
+  font-size: var(--t-lab); font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-2); border-bottom-color: var(--ink); white-space: nowrap;
+}
+tbody th{ font-size: .9375rem; font-weight: 500; color: var(--ink); white-space: nowrap; }
+tbody td{ font-size: .875rem; color: var(--ink-2); }
+tr.us th, tr.us td{ color: var(--ink); font-weight: 600; border-bottom: 1px solid var(--ink); }
+tr.us td{ font-weight: 500; }
+
+/* ── figures, set small ──────────────────────────────────── */
+.cifras{ display: grid; gap: clamp(1.25rem, 3vw, 2.5rem); margin-top: clamp(2rem, 4vw, 3rem); }
+@media (min-width: 680px){ .cifras{ grid-template-columns: repeat(3, 1fr); } }
+.cifra dt{
+  font-family: var(--sans); font-size: clamp(1.5rem, 2.3vw, 1.9rem); font-weight: 500;
+  letter-spacing: -.02em; line-height: 1.1;
+}
+.cifra dd{ margin: .5rem 0 0; font-size: .9375rem; line-height: 1.5; color: var(--ink-2); max-width: 30ch; }
+
+/* ── the build, as a set of stages ───────────────────────── */
+.etapas{ margin-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--line); }
+.etapa{
+  display: grid; gap: .3rem 2rem; align-items: baseline;
+  padding: clamp(1.2rem, 2.4vw, 1.75rem) 0; border-bottom: 1px solid var(--line);
+}
+@media (min-width: 820px){ .etapa{ grid-template-columns: 2.5rem 13rem minmax(0,1fr); } }
+.etapa__r{ font-family: var(--sans); font-size: var(--t-lab); font-weight: 500; letter-spacing: .1em; color: var(--ink-2); }
+.etapa h3 small{
+  display: block; font-size: var(--t-lab); font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-2); margin-top: .3rem;
+}
+.etapa p{ margin: 0; color: var(--ink-2); max-width: 54ch; font-size: .9688rem; }
+
+/* ── materials index ─────────────────────────────────────── */
+.mats{ display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); margin-top: clamp(2rem, 4vw, 3rem); }
+@media (min-width: 940px){ .mats{ grid-template-columns: 17rem minmax(0,1fr); align-items: start; } }
+.mats__list{ border-top: 1px solid var(--line); }
+.mat{
+  display: block; width: 100%; text-align: left;
+  padding: .95rem 0; border-bottom: 1px solid var(--line);
+  transition: opacity .3s ease;
+  opacity: .5;
+}
+.mat[aria-selected="true"]{ opacity: 1; }
+.mat:hover{ opacity: 1; }
+.mat__n{ font-family: var(--sans); font-size: var(--t-h3); font-weight: 500; letter-spacing: -.01em; display: block; }
+.mat__d{ font-family: var(--sans); font-size: var(--t-lab); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); display: block; margin-top: .28rem; }
+.mat[aria-selected="true"] .mat__n{ text-decoration: underline; text-underline-offset: .28em; text-decoration-thickness: 1px; }
+
+.mats__view{ position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--noir); }
+.mats__l{
+  position: absolute; inset: 0; background-size: cover;
+  filter: saturate(.93) contrast(1.02);
+  opacity: 0; transition: opacity .6s ease;
+}
+.mats__l.on{ opacity: 1; }
+
+/* ── primero: plate with a numbered key ──────────────────── */
+.key-plate{ position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--noir); margin-top: clamp(2rem, 4vw, 3rem); }
+.key-plate .ph{ position: absolute; inset: 0; background-image: var(--i-primero); }
+.marca{
+  position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px;
+  display: grid; place-items: center;
+}
+.marca span{
+  display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(230,226,218,.9); color: var(--noir);
+  font-family: var(--sans); font-size: .625rem; font-weight: 600; line-height: 1;
+  transition: transform .25s ease, background .25s ease, color .25s ease;
+}
+.marca:hover span, .marca:focus-visible span, .marca[data-on] span{ background: var(--ink); color: var(--paper); transform: scale(1.2); }
+
+.clave{ margin-top: clamp(1.5rem, 3vw, 2.25rem); border-top: 1px solid var(--line); }
+@media (min-width: 820px){ .clave{ display: grid; grid-template-columns: repeat(2, 1fr); column-gap: clamp(2rem,4vw,4rem); } }
+.clave__i{ display: grid; grid-template-columns: 1.75rem minmax(0,1fr); gap: .9rem; padding: .9rem 0; border-bottom: 1px solid var(--line); transition: opacity .25s ease; opacity: .58; }
+.clave__i.on{ opacity: 1; }
+.clave__n{ font-family: var(--sans); font-size: var(--t-lab); font-weight: 600; color: var(--ink); }
+.clave__i h3{ font-size: .9688rem; margin-bottom: .2rem; }
+.clave__i p{ margin: 0; font-size: .875rem; line-height: 1.5; color: var(--ink-2); max-width: 34ch; }
+
+/* ── the place ───────────────────────────────────────────── */
+.notas{ margin-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--line); }
+@media (min-width: 780px){ .notas{ display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(2rem,4vw,4.5rem); } }
+.nota{ padding: clamp(1.2rem,2.4vw,1.75rem) 0; border-bottom: 1px solid var(--line); }
+.nota h3{ margin-bottom: .35rem; }
+.nota p{ margin: 0; color: var(--ink-2); font-size: .9375rem; max-width: 38ch; }
+
+/* ── commission ──────────────────────────────────────────── */
+.terminos{ margin-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--line); }
+.termino{
+  display: grid; gap: .2rem 2rem; align-items: baseline;
+  padding: clamp(1rem,2vw,1.4rem) 0; border-bottom: 1px solid var(--line);
+}
+@media (min-width: 680px){ .termino{ grid-template-columns: 13rem 9rem minmax(0,1fr); } }
+.termino dt{ font-family: var(--sans); font-size: var(--t-lab); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+.termino dd{ margin: 0; }
+.termino .v{ font-family: var(--sans); font-size: var(--t-h3); font-weight: 500; font-variant-numeric: tabular-nums; }
+.termino .n{ color: var(--ink-2); font-size: .9375rem; max-width: 44ch; }
+
+/* ── colophon ────────────────────────────────────────────── */
+.colofon{
+  background: var(--noir); color: var(--bone);
+  padding-block: clamp(4rem, 9vh, 7.5rem);
+  --line: var(--line-d);
+  --ink: var(--bone);
+  --ink-2: var(--bone-2);
+  --ink-3: #8E8A80;
+}
+.colofon h2{ max-width: 17ch; }
+.colofon .txt{ color: var(--bone-2); }
+.colofon .txt strong{ color: var(--bone); }
+.correo{
+  display: inline-block; margin-top: clamp(1.5rem,3vw,2.25rem);
+  font-family: var(--sans); font-size: clamp(1.05rem, 1.8vw, 1.4rem); font-weight: 500;
+  letter-spacing: -.01em;
+  border-bottom: 1px solid var(--bone-2); padding-bottom: .3rem;
+  transition: border-color .25s ease;
+}
+.correo:hover{ border-bottom-color: var(--bone); }
+
+.creditos{ margin-top: clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--line-d); padding-top: clamp(1.5rem,3vw,2.25rem); }
+@media (min-width: 780px){ .creditos{ display: grid; grid-template-columns: repeat(3, 1fr); column-gap: clamp(2rem,4vw,4rem); } }
+.credito{ padding-block: .9rem; }
+.credito dt{ font-family: var(--sans); font-size: var(--t-lab); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: .5rem; }
+.credito dd{ margin: 0 0 .3rem; color: var(--bone-2); font-size: .9062rem; line-height: 1.55; }
+.credito a:hover{ color: var(--bone); }
+
+.pie{
+  margin-top: clamp(2rem,4vw,3rem); padding-top: 1.25rem; border-top: 1px solid var(--line-d);
+  display: flex; flex-wrap: wrap; gap: .4rem 2rem; justify-content: space-between;
+  font-family: var(--sans); font-size: var(--t-lab); font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3);
+}
+
+/* ── reveal ──────────────────────────────────────────────── */
+[data-r]{ transition: opacity .8s ease, transform .8s cubic-bezier(.22,.7,.3,1); }
+.oculto{ opacity: 0; transform: translate3d(0, 1.25rem, 0); }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{ animation: none !important; transition-duration: .001ms !important; }
+  .oculto{ opacity: 1 !important; transform: none !important; }
+  .abre .ph{ transform: scale(1.04); }
+}
+</style>
+
+<header class="bar" id="bar">
+  <a class="bar__mark" href="#arriba" aria-label="Vocho"></a>
+  <nav class="bar__nav" aria-label="Primary">
+    <a href="#premisa">About</a>
+    <a href="#taller">Spec</a>
+    <a href="#vocho-uno">Vocho Uno</a>
+    <a href="#contacto">Contact</a>
+  </nav>
+</header>
+
+<main id="arriba">
+
+  <!-- ─────────── OPENING PLATE ─────────── -->
+  <section class="abre">
+    <div class="ph" role="img" aria-label="A black Volkswagen Beetle with chrome bumpers, whitewall tyres and a single tan suitcase on the roof rack, parked on a cobbled street in San Miguel de Allende at golden hour. The plate reads VOCHO 1 — San Miguel Customs."></div>
+    <div class="abre__foot">
+      <p class="abre__line">Body-off restomod and electric conversion, built where the car became an icon.</p>
+      <p class="abre__meta">San Miguel de Allende · Guanajuato · México</p>
+    </div>
+  </section>
+
+  <!-- ─────────── THE PREMISE ─────────── -->
+  <section class="sec" id="premisa">
+    <div class="wrap grid">
+      <div class="col">
+        <p class="label">The premise</p>
+        <h2>Mexico's most beloved car never really left.</h2>
+        <div class="txt after-h2">
+          <p class="lead">The Beetle rolled off the line at Puebla in 1964 and became something its engineers never drew: a piece of Mexican identity.</p>
+          <p>Shortened to <em>vocho</em>, it carried families, taxi fleets, and six decades of street life. It was the car people learned to drive in, the car that got fixed on the kerb, the car that was still on every corner long after the rest of the world had moved on. Production only stopped in 2003, and even then it stopped in Puebla, not anywhere else.</p>
+          <p>Nobody has rebuilt it to the standard the car deserves — <strong>real craft, real engineering, and a story that could only come from here.</strong> So we are building it: one at a time, in the Bajío, with trades that have been here longer than the car has.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── PLATE 1 ─────────── -->
+  <figure class="plate bleed" style="margin:0" data-r>
+    <div class="ph" style="background-image:var(--i-plate);background-position:50% 46%" role="img" aria-label="Close view of the car's rear: chrome overrider bumper, oval tail lamps, and a white licence plate reading VOCHO."></div>
+    <figcaption class="cap"><b>Plate 1.</b> Rear three-quarter detail. Reference car, as specified — chrome re-plated, glass replaced, bumper irons true to the period.</figcaption>
+  </figure>
+
+  <!-- ─────────── THE NAME ─────────── -->
+  <section class="sec" id="nombre">
+    <div class="wrap grid">
+      <div class="col">
+        <p class="label">The name</p>
+        <h2>A German car, made local by a single word.</h2>
+        <div class="txt after-h2">
+          <p>Nobody in Mexico agrees on where <em>vocho</em> came from. Some hold it is simply a clipping of Volkswagen. Others say it is <em>VO</em> fused with <em>bicho</em> — bug. The argument has never been settled and probably never will be.</p>
+          <p>What isn't in question is the affection in it. It is the single most valuable thing in this business, and it costs nothing to inherit.</p>
+        </div>
+
+        <div class="fig" data-r>
+          <p class="fig__set" aria-hidden="true">
+            <b>VO</b>lkswagen<br>
+            bi<b>CHO</b><br>
+            <span class="fig__eq"><b>VOCHO</b></span>
+          </p>
+          <p class="cap"><b>Fig. 1.</b> One account of the word: <em>VO</em> from Volkswagen, <em>cho</em> from <em>bicho</em>. The other account holds it is a straight clipping of the marque. Both are current.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── THE ABSENCE ─────────── -->
+  <section class="sec" id="ausencia">
+    <div class="wrap grid">
+      <div class="col">
+        <p class="label">The absence</p>
+        <h2>A category with no Latin American voice.</h2>
+        <div class="txt after-h2">
+          <p>ICON, Singer, Everrati and JIA have built serious businesses reviving iconic platforms with modern engineering. Every one of them is based in the US, the UK or Japan, working on Broncos, 911s and Land Cruisers. <strong>None are building the car that means the most to Mexico. None are building in Mexico.</strong></p>
+        </div>
+
+        <dl class="cifras" data-r>
+          <div class="cifra"><dt>Zero</dt><dd>Restomod houses at this tier building anywhere in Latin America.</dd></div>
+          <div class="cifra"><dt>21.5 million</dt><dd>Beetles produced — the longest single-model run in the industry, 1938 to 2003.</dd></div>
+          <div class="cifra"><dt>Sixty years</dt><dd>Of accumulated cultural equity in Mexico, already paid for.</dd></div>
+        </dl>
+      </div>
+
+      <div class="col col--wide tbl" data-r>
+        <table>
+          <caption>The landscape</caption>
+          <thead>
+            <tr><th scope="col">House</th><th scope="col">Platform</th><th scope="col">Base</th><th scope="col">Cultural roots</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">ICON</th><td>Bronco, Toyota FJ</td><td>USA</td><td>American off-road</td></tr>
+            <tr><th scope="row">Singer</th><td>Porsche 911</td><td>USA / UK</td><td>European sports car</td></tr>
+            <tr><th scope="row">Everrati</th><td>Porsche, Land Rover</td><td>UK</td><td>British motoring</td></tr>
+            <tr><th scope="row">JIA</th><td>Land Rover Defender</td><td>UK</td><td>British motoring</td></tr>
+            <tr class="us"><th scope="row">Vocho</th><td>VW Beetle</td><td>México</td><td>Mexican — unclaimed</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── THE BUILD ─────────── -->
+  <section class="sec" id="taller">
+    <div class="wrap grid">
+      <div class="col">
+        <p class="label">The build</p>
+        <h2>Every panel off. Nothing left to guesswork.</h2>
+        <div class="txt after-h2">
+          <p>One car at a time, in a single queue. The exterior reads exactly as it should. The platform underneath does not.</p>
+        </div>
+      </div>
+
+      <div class="col col--wide etapas" data-r>
+        <div class="etapa">
+          <span class="etapa__r">I</span>
+          <h3>Strip <small>Despiece</small></h3>
+          <p>The shell comes off the pan and goes to bare metal. Everything that was ever bolted on is catalogued, tagged, and either restored or replaced. Nothing is painted over.</p>
+        </div>
+        <div class="etapa">
+          <span class="etapa__r">II</span>
+          <h3>Metal &amp; finish <small>Lámina</small></h3>
+          <p>Corrected, refinished, and put back true. Chrome re-plated, glass replaced, whitewalls and roof rack correct to the period. The car has to be right before it is interesting.</p>
+        </div>
+        <div class="etapa">
+          <span class="etapa__r">III</span>
+          <h3>Drivetrain <small>Primero</small></h3>
+          <p>The pan comes back with a different heart. Our own conversion system — engineered, not adapted — badged and finished to the same standard as the coachwork around it.</p>
+        </div>
+        <div class="etapa">
+          <span class="etapa__r">IV</span>
+          <h3>Trim <small>Guarnición</small></h3>
+          <p>Palm, leather, textile, brass. The last stretch is the slowest, and it is the part an owner touches every day. It is done by hand, by people whose families have done it for generations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── THE INTERIOR ─────────── -->
+  <section class="sec" id="vocho-uno">
+    <div class="wrap grid">
+      <div class="col">
+        <p class="label">The interior</p>
+        <h2>The craft is the argument.</h2>
+        <div class="txt after-h2">
+          <p>Hand-woven palm on the dash. Saddle leather where vinyl was. Regional weaving set into the seats, from the same trades the Bajío has run for generations. This is where “built in San Miguel” stops being an address and becomes the product itself.</p>
+        </div>
+      </div>
+
+      <div class="col col--wide mats" data-r>
+        <div class="mats__list" role="tablist" aria-label="Interior materials">
+          <button class="mat" type="button" role="tab" id="m0" aria-selected="true" aria-controls="matview"
+                  data-img="cabin" data-pos="30% 34%" data-zoom="215%"
+                  data-cap="Palm woven by hand in the Bajío, laid into the dash face and the parcel shelf.">
+            <span class="mat__n">Woven palm</span><span class="mat__d">Palma tejida</span>
+          </button>
+          <button class="mat" type="button" role="tab" id="m1" aria-selected="false" aria-controls="matview"
+                  data-img="cabin" data-pos="86% 52%" data-zoom="225%"
+                  data-cap="Saddle-tan hide replaces the original vinyl on every surface a hand reaches.">
+            <span class="mat__n">Saddle leather</span><span class="mat__d">Cuero de silla</span>
+          </button>
+          <button class="mat" type="button" role="tab" id="m2" aria-selected="false" aria-controls="matview"
+                  data-img="shelf" data-pos="60% 86%" data-zoom="205%"
+                  data-cap="Regional weaving inlaid into the seat faces — the same loom, a different object.">
+            <span class="mat__n">Regional textile</span><span class="mat__d">Telar del Bajío</span>
+          </button>
+          <button class="mat" type="button" role="tab" id="m3" aria-selected="false" aria-controls="matview"
+                  data-img="shelf" data-pos="14% 38%" data-zoom="195%"
+                  data-cap="Brass fittings and stitched leather pulls, made to be handled for fifty years.">
+            <span class="mat__n">Brass &amp; stitching</span><span class="mat__d">Latón y costura</span>
+          </button>
+        </div>
+
+        <figure style="margin:0">
+          <div class="mats__view" id="matview" role="tabpanel" aria-labelledby="m0">
+            <div class="mats__l on" id="layerA" style="background-image:var(--i-cabin);background-position:30% 34%;background-size:215%"></div>
+            <div class="mats__l" id="layerB"></div>
+          </div>
+          <figcaption class="cap"><b>Plate 2.</b> <span id="matCap">Palm woven by hand in the Bajío, laid into the dash face and the parcel shelf.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── PRIMERO ─────────── -->
+  <section class="sec" id="primero">
+    <div class="wrap grid">
+      <div class="col">
+        <p class="label">The platform</p>
+        <h2>Primero. Engineered, not adapted.</h2>
+        <div class="txt after-h2">
+          <p>A purpose-built conversion system, badged and finished to the same standard as the coachwork around it. Real range, real torque, serviceable in-market. Named for its place as the first proprietary system in the house — the spine every future platform will share.</p>
+          <p><strong>The exterior looks backward. Everything underneath is pointed the other way.</strong></p>
+        </div>
+      </div>
+
+      <div class="col col--wide" data-r>
+        <figure style="margin:0">
+          <div class="key-plate" id="bay">
+            <div class="ph" role="img" aria-label="The Beetle's rear deck lid open, showing the Primero electric drivetrain: an engraved motor cover, brass-bodied high-voltage junctions, braided copper cabling and a chased copper reservoir, above a black and gold plate reading primero — San Miguel."></div>
+            <button class="marca" type="button" style="left:50%;top:20%"   aria-describedby="k0" aria-label="Key 1, inverter"><span>1</span></button>
+            <button class="marca" type="button" style="left:34%;top:50%"   aria-describedby="k1" aria-label="Key 2, high-voltage junction"><span>2</span></button>
+            <button class="marca" type="button" style="left:48.5%;top:66%" aria-describedby="k2" aria-label="Key 3, motor"><span>3</span></button>
+            <button class="marca" type="button" style="left:72%;top:46%"   aria-describedby="k3" aria-label="Key 4, coolant reservoir"><span>4</span></button>
+          </div>
+          <figcaption class="cap"><b>Plate 3.</b> The Primero installation, rear bay. Keyed below.</figcaption>
+        </figure>
+
+        <div class="clave">
+          <div class="clave__i on" id="k0"><span class="clave__n">1</span><div><h3>Inverter</h3><p>Sealed and engraved to match the coachwork. Serviceable without lifting the pan.</p></div></div>
+          <div class="clave__i" id="k1"><span class="clave__n">2</span><div><h3>High-voltage junction</h3><p>Brass-bodied contactors and cloth-braided HV cable, terminated by hand.</p></div></div>
+          <div class="clave__i" id="k2"><span class="clave__n">3</span><div><h3>Motor</h3><p>The <em>primero</em> cover — cast, then chased with the house rosette.</p></div></div>
+          <div class="clave__i" id="k3"><span class="clave__n">4</span><div><h3>Coolant reservoir</h3><p>Chased copper, sized so the bay reads as one object rather than a conversion.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── PLATE 4 ─────────── -->
+  <figure class="plate bleed" style="margin:0" data-r>
+    <div class="ph" style="background-image:var(--i-cabin);background-position:46% 58%" role="img" aria-label="The cabin: cream steering wheel, woven palm across the dash face, saddle-tan door cards and seats with black-and-cream regional weaving inlaid into their faces."></div>
+    <figcaption class="cap"><b>Plate 4.</b> Cabin, driver's side. Palm across the dash face, saddle hide on every touched surface, regional weaving inlaid into the seats.</figcaption>
+  </figure>
+
+  <!-- ─────────── THE PLACE ─────────── -->
+  <section class="sec" id="lugar">
+    <div class="wrap grid">
+      <div class="col">
+        <p class="label">The place</p>
+        <h2>The place is not the setting. It is the product.</h2>
+      </div>
+      <div class="col col--wide notas" data-r>
+        <div class="nota"><h3>Artisan access</h3><p>Generational leatherwork, weaving and metalwork trades within driving distance — the same hands already on this build.</p></div>
+        <div class="nota"><h3>Cost structure</h3><p>Skilled fabrication labour at a fraction of US and UK restomod-house rates, with no compromise to the finish standard.</p></div>
+        <div class="nota"><h3>Cultural authority</h3><p>A Mexican-built <em>vocho</em>, made in the Bajío, is a claim no shop in California or Oxfordshire can make.</p></div>
+        <div class="nota"><h3>Routes</h3><p>A central Mexico base with workable routes into both the US collector market and the domestic enthusiast market.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── THE COMMISSION ─────────── -->
+  <section class="sec" id="encargo">
+    <div class="wrap grid">
+      <div class="col">
+        <p class="label">The commission</p>
+        <h2>Low volume, by design.</h2>
+        <div class="txt after-h2">
+          <p>Scarcity and finish standard set the price, not throughput. Every car is spec'd with its owner — colour, hide, textile, powertrain configuration — and photographed through every stage of the build.</p>
+        </div>
+      </div>
+
+      <div class="col col--wide terminos" data-r>
+        <div class="termino"><dt>Production</dt><dd class="v">6–15</dd><dd class="n">Builds a year at full capacity, one car in the queue at a time.</dd></div>
+        <div class="termino"><dt>Commission</dt><dd class="v">$60–100K</dd><dd class="n">Target per build, USD, specification dependent.</dd></div>
+        <div class="termino"><dt>First delivery</dt><dd class="v">12 months</dd><dd class="n">From first commission to the first car leaving San Miguel.</dd></div>
+        <div class="termino"><dt>Delivery</dt><dd class="v">Bajío</dd><dd class="n">Out of San Miguel de Allende, into the US collector market or the domestic Mexican market.</dd></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ─────────── COLOPHON ─────────── -->
+<footer class="colofon" id="contacto">
+  <div class="wrap grid">
+    <div class="col">
+      <p class="label">Enquiries</p>
+      <h2>Commissions are taken directly.</h2>
+      <div class="txt after-h2">
+        <p>Vocho opens with the Beetle. A Combi line and a truck line follow. The first car is in build; the queue for the second is open.</p>
+      </div>
+      <a class="correo" href="mailto:hola@vocho.mx?subject=Commission%20enquiry">hola@vocho.mx</a>
+    </div>
+
+    <div class="col col--wide creditos">
+      <dl class="credito">
+        <dt>Workshop</dt>
+        <dd>San Miguel de Allende</dd>
+        <dd>Guanajuato, México</dd>
+        <dd>20.9153° N, 100.7436° O</dd>
+      </dl>
+      <dl class="credito">
+        <dt>Trades</dt>
+        <dd>Hojalatería · Pintura · Cromado</dd>
+        <dd>Vidrio · Tapicería · Telar</dd>
+        <dd>Palma · Eléctrico</dd>
+      </dl>
+      <dl class="credito">
+        <dt>Direction</dt>
+        <dd>Darren Marshall, founder</dd>
+        <dd>Fabrication lead, EV systems engineer<br>and logistics partner in scouting</dd>
+        <dd><a href="mailto:hola@vocho.mx">hola@vocho.mx</a></dd>
+      </dl>
+    </div>
+
+    <div class="col col--wide pie">
+      <span>Vocho — San Miguel de Allende</span>
+      <span>© 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ── reveals: hide only what starts below the first frame ── */
+  if (!reduce && "IntersectionObserver" in window) {
+    var pending = [];
+    [].slice.call(document.querySelectorAll("[data-r]")).forEach(function(el){
+      if (el.getBoundingClientRect().top > innerHeight * 1.05) { el.classList.add("oculto"); pending.push(el); }
+    });
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.remove("oculto"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: .05 });
+    pending.forEach(function(el){ io.observe(el); });
+    setTimeout(function(){ pending.forEach(function(el){ el.classList.remove("oculto"); }); }, 6000);
+  }
+
+  /* ── materials index ── */
+  var IMGS = {}, cs = getComputedStyle(document.documentElement);
+  ["hero","plate","cabin","shelf","primero"].forEach(function(k){ IMGS[k] = cs.getPropertyValue("--i-" + k); });
+
+  var mats = [].slice.call(document.querySelectorAll(".mat"));
+  var layerA = document.getElementById("layerA");
+  var layerB = document.getElementById("layerB");
+  var matCap = document.getElementById("matCap");
+  var view = document.getElementById("matview");
+  var front = layerA, back = layerB, curImg = "cabin";
+
+  function pick(btn){
+    mats.forEach(function(b){
+      var on = b === btn;
+      b.setAttribute("aria-selected", String(on));
+      b.tabIndex = on ? 0 : -1;
+    });
+    var img = btn.getAttribute("data-img");
+    var pos = btn.getAttribute("data-pos");
+    var zoom = btn.getAttribute("data-zoom");
+    if (matCap) matCap.textContent = btn.getAttribute("data-cap");
+    if (view) view.setAttribute("aria-labelledby", btn.id);
+
+    if (img === curImg) {
+      front.style.backgroundPosition = pos;
+      front.style.backgroundSize = zoom;
+    } else {
+      back.style.backgroundImage = IMGS[img];
+      back.style.backgroundPosition = pos;
+      back.style.backgroundSize = zoom;
+      back.classList.add("on");
+      front.classList.remove("on");
+      var t = front; front = back; back = t;
+      curImg = img;
+    }
+  }
+  mats.forEach(function(b, i){
+    b.tabIndex = i === 0 ? 0 : -1;
+    b.addEventListener("click", function(){ pick(b); });
+    b.addEventListener("mouseenter", function(){ if (!reduce) pick(b); });
+    b.addEventListener("focus", function(){ pick(b); });
+    b.addEventListener("keydown", function(e){
+      var d = (e.key === "ArrowDown" || e.key === "ArrowRight") ? 1 : (e.key === "ArrowUp" || e.key === "ArrowLeft") ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      mats[(i + d + mats.length) % mats.length].focus();
+    });
+  });
+
+  /* ── the figure key ── */
+  var marcas = [].slice.call(document.querySelectorAll(".marca"));
+  var claves = [].slice.call(document.querySelectorAll(".clave__i"));
+  function keyOn(i){
+    claves.forEach(function(c, k){ c.classList.toggle("on", k === i); });
+    marcas.forEach(function(m, k){ if (k === i) m.setAttribute("data-on",""); else m.removeAttribute("data-on"); });
+  }
+  marcas.forEach(function(m, i){
+    ["mouseenter","focus","click"].forEach(function(ev){ m.addEventListener(ev, function(){ keyOn(i); }); });
+  });
+})();
+</script>

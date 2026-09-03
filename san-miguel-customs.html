@@ -1,0 +1,1671 @@
+<title>San Miguel Customs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+
+<style id="assets">
+:root{
+  --i-hero:    url("hero.png");
+  --i-plate:   url("plate.jpg");
+  --i-cabin:   url("cabin.jpg");
+  --i-shelf:   url("shelf.jpg");
+  --i-primero: url("primero.jpg");
+}
+</style>
+
+<style>
+/* ============================================================
+   SAN MIGUEL CUSTOMS — THE VOCHO SERIES
+   Single committed visual world: warm black lacquer + bone + brass.
+   Every colour painted explicitly so the page holds on any host ground.
+   ============================================================ */
+
+:root{
+  /* ---- ground & ink ---- */
+  --ink:        #100E0B;   /* warm black — the lacquer */
+  --ink-raised: #191510;   /* raised panel */
+  --ink-deep:   #080706;   /* wells, image wells */
+  --bone:       #EDE7DB;   /* warm bone — type on dark, the one light break */
+  --bone-dim:   #C9C1B2;
+  --stone:      #8B8377;   /* secondary text */
+  --stone-dim:  #57514A;   /* hairlines on dark */
+  --brass:      #B18B50;   /* rules, numerals, micro-labels */
+  --brass-lo:   #6E5730;
+  --buganvilia: #C43A6E;   /* one note, pulled from the bougainvillea. Active state only. */
+
+  /* ---- chrome (nav + rail) flips over the bone chapter ---- */
+  --chrome-fg:   var(--bone);
+  --chrome-mute: var(--stone);
+  --chrome-rule: rgba(177,139,80,.34);
+  --chrome-bg:   rgba(16,14,11,.82);
+
+  /* ---- type ---- */
+  --serif: "Instrument Serif", "Century Schoolbook", "Iowan Old Style", Georgia, serif;
+  --sans:  "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono:  "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --t-hero:    clamp(4.25rem, 22vw, 20rem);
+  --t-morph:   clamp(3rem, 13.5vw, 11.5rem);
+  --t-display: clamp(2.55rem, 6.6vw, 6.4rem);
+  --t-h2:      clamp(2rem, 4.4vw, 4rem);
+  --t-fig:     clamp(2.6rem, 6vw, 5.6rem);
+  --t-lead:    clamp(1.12rem, 1.45vw, 1.5rem);
+  --t-body:    clamp(1rem, 1.02vw, 1.0625rem);
+  --t-micro:   .6875rem;
+
+  /* ---- measure ---- */
+  --rail: 0px;
+  --pad:  clamp(1.25rem, 5vw, 5rem);
+  --max:  1580px;
+  --sec:  clamp(6rem, 13vh, 11rem);
+
+  color-scheme: dark;
+}
+
+@media (min-width: 1080px){ :root{ --rail: 78px; } }
+
+/* the bone chapter inverts the fixed chrome */
+[data-ground="bone"]{
+  --chrome-fg:   #241F18;
+  --chrome-mute: #6E665A;
+  --chrome-rule: rgba(110,87,48,.4);
+  --chrome-bg:   rgba(237,231,219,.84);
+}
+
+*{ box-sizing: border-box; }
+
+html{ scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+[id]{ scroll-margin-top: 4.75rem; }
+
+body{
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  line-height: 1.62;
+  font-weight: 400;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* film grain over the whole lacquer ground */
+body::after{
+  content:"";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 90;
+  opacity: .05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+button{ font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+:focus-visible{
+  outline: 1px solid var(--brass);
+  outline-offset: 4px;
+}
+
+::selection{ background: var(--brass); color: var(--ink); }
+
+/* ---------- primitives ---------- */
+
+.wrap{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-inline: max(var(--pad), calc(var(--rail) + 1.25rem));
+}
+
+.micro{
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: .19em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.serif{ font-family: var(--serif); font-weight: 400; }
+
+.rule{ height: 1px; background: var(--stone-dim); border: 0; margin: 0; }
+.rule--brass{ background: var(--brass-lo); }
+
+.es{ font-style: italic; }
+
+/* chapter section shell */
+.ch{ position: relative; padding-block: var(--sec); }
+.ch--tight{ padding-block: clamp(4rem, 8vh, 7rem); }
+
+/* asymmetric field: narrow label gutter + wide text field */
+.field{
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 900px){
+  .field{ grid-template-columns: 13.5rem minmax(0, 1fr); gap: clamp(2.5rem, 5vw, 6rem); }
+}
+
+.ch-head{
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+  position: relative;
+  padding-top: .9rem;
+}
+.ch-head::before{
+  content:""; position: absolute; top: 0; left: 0;
+  width: 2.5rem; height: 1px; background: var(--brass);
+}
+.ch-num{
+  font-family: var(--mono); font-size: var(--t-micro); font-weight: 500;
+  letter-spacing: .2em; color: var(--brass);
+}
+.ch-es{
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.5rem; line-height: 1.1; color: var(--bone);
+}
+.ch-en{
+  font-family: var(--mono); font-size: var(--t-micro);
+  letter-spacing: .18em; text-transform: uppercase; color: var(--stone);
+}
+
+.statement{
+  font-family: var(--serif);
+  font-size: var(--t-display);
+  line-height: .96;
+  letter-spacing: -.02em;
+  margin: 0 0 clamp(1.75rem, 3vw, 2.75rem);
+  text-wrap: balance;
+  max-width: 17ch;
+}
+.statement em{ font-style: italic; color: var(--brass); }
+
+.prose{ max-width: 62ch; color: var(--bone-dim); }
+.prose p{ margin: 0 0 1.2em; }
+.prose p:last-child{ margin-bottom: 0; }
+.prose strong{ font-weight: 500; color: var(--bone); }
+
+.two-col{ display: grid; gap: clamp(1.5rem, 3vw, 3rem); }
+@media (min-width: 760px){ .two-col{ grid-template-columns: 1fr 1fr; max-width: 74ch; } }
+.two-col .prose{ max-width: 46ch; }
+
+/* ============================================================
+   FIXED CHROME — top bar, progress hairline, chapter rail
+   ============================================================ */
+
+.bar{
+  position: fixed; top: 0; left: 0; right: 0; z-index: 80;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+  padding: 1.05rem max(var(--pad), calc(var(--rail) + 1.25rem));
+  color: var(--chrome-fg);
+  transition: background .45s ease, border-color .45s ease, color .45s ease, backdrop-filter .45s ease;
+  border-bottom: 1px solid transparent;
+}
+.bar--set{
+  background: var(--chrome-bg);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  border-bottom-color: var(--chrome-rule);
+}
+
+.mark{ display: flex; align-items: center; gap: .6rem; }
+.mark svg{ width: 13px; height: 13px; color: var(--brass); flex: none; }
+.mark b{
+  font-family: var(--mono); font-size: var(--t-micro); font-weight: 500;
+  letter-spacing: .21em; text-transform: uppercase;
+}
+.mark i{
+  font-family: var(--mono); font-size: var(--t-micro); font-style: normal;
+  letter-spacing: .18em; color: var(--chrome-mute);
+  display: none;
+}
+@media (min-width: 720px){ .mark i{ display: inline; } }
+
+.bar-cta{
+  font-family: var(--mono); font-size: var(--t-micro); font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: .6rem;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--brass);
+  transition: color .3s ease, border-color .3s ease;
+}
+.bar-cta:hover{ color: var(--brass); }
+.bar-cta span{ transition: transform .35s cubic-bezier(.2,.7,.3,1); }
+.bar-cta:hover span{ transform: translateX(3px); }
+
+.progress{
+  position: fixed; top: 0; left: 0; height: 1px; z-index: 85;
+  display: block; width: 0%;
+  background: var(--brass);
+}
+
+/* the rail: fixed chapter readout, rotated, desktop only */
+.rail{
+  position: fixed; top: 0; bottom: 0; left: 0; width: var(--rail);
+  z-index: 79; display: none;
+  pointer-events: none;
+}
+@media (min-width: 1080px){ .rail{ display: block; } }
+
+.rail__line{
+  position: absolute; left: 50%; top: 22vh; bottom: 22vh;
+  width: 1px; background: var(--chrome-rule);
+  transition: background .45s ease;
+}
+.rail__dot{
+  position: absolute; left: 50%; top: 22vh;
+  width: 5px; height: 5px; margin-left: -2px; margin-top: -2px;
+  border-radius: 50%; background: var(--buganvilia);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--buganvilia) 18%, transparent);
+}
+.rail__tag{
+  position: absolute; left: 50%; bottom: 22vh;
+  transform-origin: left bottom;
+  transform: rotate(-90deg) translateX(0);
+  white-space: nowrap;
+  font-family: var(--mono); font-size: var(--t-micro); font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--chrome-mute);
+  margin-left: 12px;
+  transition: color .45s ease, opacity .4s ease;
+}
+.rail__tag b{ color: var(--brass); font-weight: 500; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.hero{
+  position: relative;
+  min-height: clamp(620px, 92vh, 1060px);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  overflow: hidden;
+  background: var(--ink-deep);
+  isolation: isolate;
+}
+.hero__img{
+  position: absolute; inset: -3%;
+  background-image: var(--i-hero);
+  background-size: cover;
+  background-position: 48% 50%;
+  z-index: -2;
+  animation: drift 34s ease-in-out infinite alternate;
+}
+@keyframes drift{
+  from{ transform: scale(1.045) translate3d(0,0,0); }
+  to  { transform: scale(1.10) translate3d(-1.4%, -1.2%, 0); }
+}
+.hero__veil{
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(to top, rgba(8,7,6,.94) 0%, rgba(8,7,6,.55) 26%, rgba(8,7,6,.06) 56%, rgba(8,7,6,.42) 100%),
+    linear-gradient(to right, rgba(8,7,6,.62) 0%, rgba(8,7,6,0) 42%);
+}
+
+.hero__inner{
+  width: 100%; max-width: var(--max); margin: 0 auto;
+  padding: 0 max(var(--pad), calc(var(--rail) + 1.25rem)) clamp(2.25rem, 5vh, 4rem);
+}
+
+.hero__eyebrow{
+  display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; align-items: baseline;
+  color: var(--brass);
+  margin-bottom: clamp(.75rem, 2vh, 1.5rem);
+  animation: rise .8s .05s cubic-bezier(.2,.7,.25,1) both;
+}
+.hero__eyebrow em{ color: var(--stone); font-style: normal; }
+
+.hero__word{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: var(--t-hero);
+  line-height: .78;
+  letter-spacing: -.025em;
+  margin: 0;
+  color: var(--bone);
+  animation: rise 1s .12s cubic-bezier(.2,.7,.25,1) both;
+}
+
+.hero__foot{
+  display: grid; gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: end;
+  margin-top: clamp(1.25rem, 3vh, 2.25rem);
+  animation: rise .9s .3s cubic-bezier(.2,.7,.25,1) both;
+}
+@media (min-width: 860px){
+  .hero__foot{ grid-template-columns: minmax(0, 30rem) minmax(0, 1fr); }
+}
+.hero__lead{
+  font-family: var(--serif);
+  font-size: var(--t-lead);
+  line-height: 1.34;
+  color: var(--bone);
+  margin: 0;
+  max-width: 30ch;
+}
+
+.spec-row{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 1px;
+  background: rgba(177,139,80,.28);
+  border-top: 1px solid rgba(177,139,80,.28);
+  border-bottom: 1px solid rgba(177,139,80,.28);
+}
+@media (min-width: 640px){ .spec-row{ grid-template-columns: repeat(4, minmax(0,1fr)); } }
+.spec{
+  background: var(--ink-deep);
+  padding: .85rem .9rem .95rem;
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.hero .spec{ background: rgba(8,7,6,.72); }
+.spec dt{ font-family: var(--mono); font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); }
+.spec dd{ margin: 0; font-family: var(--serif); font-size: 1.0625rem; line-height: 1.2; color: var(--bone); }
+
+@keyframes rise{
+  from{ opacity: 0; transform: translate3d(0, 1.6rem, 0); }
+  to  { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   TICKER
+   ============================================================ */
+
+.ticker{
+  border-top: 1px solid var(--stone-dim);
+  border-bottom: 1px solid var(--stone-dim);
+  overflow: hidden;
+  background: var(--ink);
+  padding-block: .9rem;
+}
+.ticker__track{ display: flex; width: max-content; animation: slide 58s linear infinite; }
+.ticker__set{ display: flex; flex: none; }
+.ticker__set span{
+  font-family: var(--mono); font-size: var(--t-micro); font-weight: 500;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--stone);
+  padding-inline: 1.6rem;
+  white-space: nowrap;
+}
+.ticker__set span b{ color: var(--brass); font-weight: 500; }
+@keyframes slide{ from{ transform: translate3d(0,0,0); } to{ transform: translate3d(-50%,0,0); } }
+
+/* ============================================================
+   02 — EL NOMBRE (the etymology set piece)
+   ============================================================ */
+
+.name{ position: relative; height: 240vh; }
+@media (max-width: 780px){ .name{ height: 190vh; } }
+
+.name--static{ height: auto !important; }
+.name--static .name__pin{
+  position: static; height: auto; display: block;
+  max-width: var(--max); margin-inline: auto;
+  padding: clamp(6rem, 13vh, 11rem) max(var(--pad), calc(var(--rail) + 1.25rem));
+}
+.name--static .name__head{ position: static; padding-inline: 0; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.name--static .morph{ padding-inline: 0; text-align: left; }
+.name--static .morph__cap{ position: static; padding-inline: 0; margin-top: clamp(2.5rem, 5vw, 4rem); }
+.name--static .morph__tag{ display: none; }
+.name--static .morph__result{ display: block; }
+
+.morph__result{
+  display: none;
+  font-family: var(--serif); font-style: italic;
+  font-size: var(--t-morph); line-height: 1.02;
+  color: var(--brass);
+  border-top: 1px solid var(--brass-lo);
+  margin-top: .3em; padding-top: .12em;
+}
+
+.name__pin{
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  overflow: hidden;
+}
+.name__head{
+  position: absolute; top: clamp(5rem, 12vh, 8rem); left: 0; right: 0;
+  padding-inline: max(var(--pad), calc(var(--rail) + 1.25rem));
+  max-width: var(--max); margin: 0 auto;
+}
+
+.morph{
+  padding-inline: max(var(--pad), calc(var(--rail) + 1.25rem));
+  text-align: center;
+}
+.morph__line{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: var(--t-morph);
+  line-height: 1.02;
+  letter-spacing: 0;
+  white-space: nowrap;
+  will-change: transform;
+  position: relative;
+}
+.morph__line .lt{
+  display: inline-block;
+  transform-origin: left center;
+  will-change: transform, opacity, margin-right;
+}
+.morph__line .lt[data-keep]{ color: var(--bone); }
+.morph__line .lt:not([data-keep]){ color: var(--stone-dim); }
+
+.morph__tag{
+  position: absolute; left: 0; top: 50%;
+  transform: translateY(-50%);
+  transition: opacity .4s ease;
+  font-family: var(--mono); font-size: var(--t-micro); font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--brass-lo);
+  white-space: nowrap;
+  font-style: normal;
+  display: none;
+}
+@media (min-width: 1180px){ .morph__tag{ display: block; } }
+
+.morph__cap{
+  position: absolute; left: 0; right: 0; bottom: clamp(4rem, 11vh, 7rem);
+  padding-inline: max(var(--pad), calc(var(--rail) + 1.25rem));
+  max-width: var(--max); margin: 0 auto;
+  display: grid; gap: 1rem;
+}
+@media (min-width: 900px){
+  .morph__cap{ grid-template-columns: 13.5rem minmax(0,1fr); gap: clamp(2.5rem,5vw,6rem); align-items: start; }
+}
+.morph__cap p{ margin: 0; max-width: 56ch; color: var(--bone-dim); }
+.morph__cap .micro{ color: var(--brass); }
+
+/* ============================================================
+   FULL-BLEED IMAGE BREAK
+   ============================================================ */
+
+.plate{
+  position: relative;
+  height: clamp(420px, 76vh, 880px);
+  background-color: var(--ink-deep);
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.plate__img{
+  position: absolute; inset: 0; z-index: 0;
+  background-image: var(--i-plate);
+  background-size: cover;
+  background-position: 50% 44%;
+}
+.plate::before{
+  content:""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(8,7,6,.88), rgba(8,7,6,.05) 46%);
+}
+.plate__cap{
+  position: relative; z-index: 2;
+  width: 100%; max-width: var(--max); margin: 0 auto;
+  padding: 0 max(var(--pad), calc(var(--rail) + 1.25rem)) clamp(1.75rem, 4vh, 3rem);
+  display: flex; flex-wrap: wrap; gap: .5rem 2rem; justify-content: space-between;
+  color: var(--stone);
+}
+.plate__cap b{ color: var(--brass); font-weight: 500; }
+
+/* ============================================================
+   03 — LA AUSENCIA (bone chapter: the spec sheet)
+   ============================================================ */
+
+.bone{
+  background: var(--bone);
+  color: #241F18;
+  --stone: #6E665A;
+  --stone-dim: rgba(36,31,24,.16);
+  --bone-dim: #453E34;
+  --brass: #8A6A33;
+  --brass-lo: rgba(138,106,51,.5);
+}
+.bone .statement em{ color: #8A6A33; }
+.bone .ch-es{ color: #241F18; }
+.bone .prose{ color: #453E34; }
+.bone .prose strong{ color: #241F18; }
+
+.figs{
+  display: grid; gap: 0;
+  border-top: 1px solid var(--stone-dim);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+@media (min-width: 720px){ .figs{ grid-template-columns: repeat(3, 1fr); } }
+.fig{
+  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+  border-bottom: 1px solid var(--stone-dim);
+}
+@media (min-width: 720px){
+  .fig{ border-bottom: 0; padding-right: clamp(1.25rem, 3vw, 2.5rem); }
+  .fig + .fig{ border-left: 1px solid var(--stone-dim); padding-left: clamp(1.25rem, 3vw, 2.5rem); }
+}
+.fig__n{
+  font-family: var(--serif);
+  font-size: var(--t-fig);
+  line-height: .95;
+  letter-spacing: -.02em;
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+.fig__u{ font-size: .42em; font-style: italic; letter-spacing: 0; margin-left: .12em; }
+.fig p{ margin: .85rem 0 0; max-width: 30ch; font-size: .9375rem; line-height: 1.55; color: #453E34; }
+
+/* comparison table */
+.tbl-wrap{
+  margin-top: clamp(3rem, 6vw, 5rem);
+  overflow-x: auto;
+  border-top: 1px solid rgba(36,31,24,.28);
+  -webkit-overflow-scrolling: touch;
+}
+table{ width: 100%; border-collapse: collapse; min-width: 42rem; }
+thead th{
+  font-family: var(--mono); font-size: 9.5px; font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: #6E665A; text-align: left;
+  padding: .9rem 1.25rem .9rem 0;
+  border-bottom: 1px solid rgba(36,31,24,.16);
+  white-space: nowrap;
+}
+tbody td{
+  padding: 1.05rem 1.25rem 1.05rem 0;
+  border-bottom: 1px solid rgba(36,31,24,.1);
+  font-size: .9375rem;
+  color: #453E34;
+  vertical-align: baseline;
+}
+tbody th{
+  padding: 1.05rem 1.25rem 1.05rem 0;
+  border-bottom: 1px solid rgba(36,31,24,.1);
+  text-align: left; font-weight: 400;
+  font-family: var(--serif); font-size: 1.3rem; line-height: 1.15;
+  color: #241F18; white-space: nowrap;
+  vertical-align: baseline;
+}
+tr.us th, tr.us td{
+  border-bottom: 1px solid rgba(36,31,24,.28);
+  background: rgba(138,106,51,.07);
+  color: #241F18;
+}
+tr.us th{ font-style: italic; }
+tr.us td:last-child{ color: #A0295A; }
+.tbl-note{ margin: 1.25rem 0 0; font-size: .875rem; color: #6E665A; max-width: 68ch; }
+
+/* ============================================================
+   04 — LA CONSTRUCCIÓN (pinned horizontal build sequence)
+   ============================================================ */
+
+.build{ position: relative; height: 400vh; background: var(--ink-deep); }
+.build__pin{
+  position: sticky; top: 0; height: 100vh;
+  overflow: hidden; display: flex; align-items: center;
+}
+.build__track{
+  display: flex; height: 100%; align-items: stretch;
+  width: max-content;
+  will-change: transform;
+}
+
+/* narrow viewports and reduced motion: unpin, stack, no horizontal travel */
+.build--stacked{ height: auto !important; background: var(--ink-deep); }
+.build--stacked .build__pin{ position: static; height: auto; display: block; overflow: visible; }
+.build--stacked .build__track{ flex-direction: column; width: 100%; height: auto; transform: none !important; }
+.build--stacked .stage,
+.build--stacked .stage:first-child,
+.build--stacked .stage:last-child{
+  flex: 0 0 auto; width: 100%;
+  border-right: 0;
+  border-bottom: 1px solid rgba(139,131,119,.2);
+  padding: clamp(3rem, 7vh, 4.5rem) max(var(--pad), calc(var(--rail) + 1.25rem));
+  justify-content: flex-start;
+}
+.build--stacked .stage:last-child{ border-bottom: 0; }
+.build--stacked .stage__meta{ margin-top: clamp(1.5rem, 3vh, 2rem); }
+.build--stacked .build__hint{ display: none; }
+.stage{
+  flex: 0 0 min(88vw, 620px);
+  border-right: 1px solid rgba(139,131,119,.2);
+  padding: clamp(5.5rem, 13vh, 9rem) clamp(1.5rem, 4vw, 3.25rem) clamp(3rem, 7vh, 5rem);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
+}
+.stage:first-child{
+  flex: 0 0 min(92vw, 560px);
+  padding-left: max(var(--pad), calc(var(--rail) + 1.25rem));
+  justify-content: center;
+}
+.stage:last-child{ flex: 0 0 min(88vw, 660px); border-right: 0; padding-right: clamp(2rem, 8vw, 7rem); }
+
+.stage__bg{
+  position: absolute; inset: 0; z-index: 0;
+  background-size: cover;
+  opacity: .5;
+  filter: grayscale(.25) contrast(1.05);
+}
+.stage__bg::after{
+  content:""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,7,6,.95) 8%, rgba(8,7,6,.45) 60%, rgba(8,7,6,.7) 100%);
+}
+.stage > *:not(.stage__bg){ position: relative; z-index: 1; }
+
+.stage__n{
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1;
+  color: var(--brass); margin: 0 0 .35rem;
+}
+.stage__t{
+  font-family: var(--serif); font-size: clamp(1.75rem, 3vw, 2.6rem);
+  line-height: 1.05; letter-spacing: -.015em; margin: 0 0 1rem; color: var(--bone);
+}
+.stage p{ margin: 0; max-width: 38ch; color: var(--bone-dim); font-size: .9688rem; }
+.stage__meta{
+  margin-top: auto; padding-top: clamp(1.75rem, 4vh, 3rem);
+  display: flex; gap: 1.5rem; flex-wrap: wrap;
+  color: var(--stone);
+}
+.stage__meta b{ color: var(--brass); font-weight: 500; }
+
+.build__hint{
+  position: absolute; right: clamp(1.5rem, 4vw, 3rem); bottom: clamp(1.5rem, 4vh, 2.5rem);
+  z-index: 3; color: var(--stone); display: flex; align-items: center; gap: .7rem;
+}
+.build__hint i{ display: block; width: 3.5rem; height: 1px; background: var(--brass-lo); position: relative; }
+.build__hint i::after{
+  content:""; position: absolute; right: 0; top: -2px;
+  width: 5px; height: 5px; border-right: 1px solid var(--brass); border-top: 1px solid var(--brass);
+  transform: rotate(45deg);
+}
+
+/* ============================================================
+   05 — EL INTERIOR (material selector)
+   ============================================================ */
+
+.craft{ display: grid; gap: clamp(2rem, 4vw, 3.5rem); margin-top: clamp(2.5rem, 5vw, 4rem); }
+@media (min-width: 940px){ .craft{ grid-template-columns: 22rem minmax(0,1fr); align-items: start; } }
+
+.mats{ display: flex; flex-direction: column; border-top: 1px solid var(--stone-dim); }
+.mat{
+  display: grid; grid-template-columns: 1.1rem 1fr; gap: .85rem; align-items: baseline;
+  text-align: left; width: 100%;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid var(--stone-dim);
+  color: var(--stone);
+  transition: color .35s ease;
+}
+.mat__dot{
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--stone-dim); margin-top: .55rem;
+  transition: background .35s ease, box-shadow .35s ease, transform .35s ease;
+  justify-self: center;
+}
+.mat__es{
+  font-family: var(--serif); font-style: italic; font-size: 1.3125rem; line-height: 1.15;
+  display: block; color: var(--stone); transition: color .35s ease;
+}
+.mat__en{
+  font-family: var(--mono); font-size: var(--t-micro); letter-spacing: .18em;
+  text-transform: uppercase; display: block; margin-top: .3rem;
+}
+.mat[aria-selected="true"] .mat__es{ color: var(--bone); }
+.mat[aria-selected="true"]{ color: var(--brass); }
+.mat[aria-selected="true"] .mat__dot{
+  background: var(--buganvilia);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--buganvilia) 16%, transparent);
+  transform: scale(1.1);
+}
+.mat:hover .mat__es{ color: var(--bone); }
+
+.plate-view{
+  position: relative;
+  aspect-ratio: 3 / 2;
+  background: var(--ink-deep);
+  overflow: hidden;
+  border: 1px solid var(--stone-dim);
+}
+.plate-view__l{
+  position: absolute; inset: 0;
+  background-size: 165% auto;
+  background-position: 50% 50%;
+  opacity: 0;
+  transition: opacity .7s ease, background-position 1.1s cubic-bezier(.3,.7,.25,1), background-size 1.1s cubic-bezier(.3,.7,.25,1);
+}
+.plate-view__l.on{ opacity: 1; }
+.plate-view__cap{
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: clamp(1.75rem, 4vw, 2.5rem) clamp(1.25rem, 3vw, 2rem) clamp(1.1rem, 2.5vw, 1.5rem);
+  background: linear-gradient(to top, rgba(8,7,6,.92), rgba(8,7,6,0));
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+.plate-view__cap p{ margin: 0; font-family: var(--serif); font-size: 1.0625rem; color: var(--bone); max-width: 44ch; }
+.plate-view__cap .micro{ color: var(--brass); }
+
+/* ============================================================
+   06 — PRIMERO (annotated engine bay)
+   ============================================================ */
+
+.primero{ background: var(--ink-deep); }
+.bay{
+  position: relative;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  aspect-ratio: 3 / 2;
+  border: 1px solid var(--stone-dim);
+  overflow: hidden;
+}
+.bay__img{
+  position: absolute; inset: 0;
+  background-image: var(--i-primero);
+  background-size: cover; background-position: 50% 50%;
+}
+.hot{
+  position: absolute;
+  width: 30px; height: 30px; margin: -15px 0 0 -15px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+}
+.hot::before{
+  content:""; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--brass);
+  box-shadow: 0 0 0 1px rgba(237,231,219,.55), 0 0 14px rgba(177,139,80,.8);
+  transition: transform .3s ease, background .3s ease;
+}
+.hot::after{
+  content:""; position: absolute; inset: 3px; border-radius: 50%;
+  border: 1px solid rgba(177,139,80,.65);
+  animation: ping 2.8s ease-out infinite;
+}
+.hot:hover::before, .hot:focus-visible::before, .hot[data-on]::before{
+  transform: scale(1.35); background: var(--buganvilia);
+}
+@keyframes ping{
+  0%{ transform: scale(.7); opacity: .9; }
+  70%{ transform: scale(1.9); opacity: 0; }
+  100%{ transform: scale(1.9); opacity: 0; }
+}
+
+.annots{
+  display: grid; gap: 0;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--stone-dim);
+}
+@media (min-width: 800px){ .annots{ grid-template-columns: repeat(4, 1fr); } }
+.annot{
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--stone-dim);
+  transition: background .35s ease;
+}
+@media (min-width: 800px){
+  .annot{ border-bottom: 0; padding-right: 1.5rem; }
+  .annot + .annot{ border-left: 1px solid var(--stone-dim); padding-left: 1.5rem; }
+}
+.annot.on .annot__t{ color: var(--bone); }
+.annot.on .annot__k{ color: var(--buganvilia); }
+.annot__k{ font-family: var(--mono); font-size: var(--t-micro); letter-spacing: .2em; color: var(--brass); transition: color .3s ease; }
+.annot__t{ font-family: var(--serif); font-size: 1.25rem; line-height: 1.15; margin: .45rem 0 .4rem; color: var(--bone-dim); transition: color .3s ease; }
+.annot p{ margin: 0; font-size: .875rem; line-height: 1.5; color: var(--stone); max-width: 30ch; }
+
+/* ============================================================
+   07 — EL LUGAR
+   ============================================================ */
+
+.reasons{
+  display: grid; gap: 0;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--stone-dim);
+}
+@media (min-width: 780px){ .reasons{ grid-template-columns: 1fr 1fr; } }
+.reason{
+  padding: clamp(1.75rem, 3.5vw, 2.75rem) 0;
+  border-bottom: 1px solid var(--stone-dim);
+  display: grid; grid-template-columns: 3rem minmax(0,1fr); gap: 1.25rem;
+}
+@media (min-width: 780px){
+  .reason:nth-child(odd){ padding-right: clamp(2rem, 4vw, 4rem); }
+  .reason:nth-child(even){ padding-left: clamp(2rem, 4vw, 4rem); border-left: 1px solid var(--stone-dim); }
+}
+.reason__r{ font-family: var(--serif); font-style: italic; font-size: 1.6rem; color: var(--brass); line-height: 1; }
+.reason h3{ font-family: var(--serif); font-size: 1.55rem; font-weight: 400; margin: 0 0 .55rem; line-height: 1.1; }
+.reason p{ margin: 0; color: var(--bone-dim); max-width: 40ch; font-size: .9688rem; }
+
+/* ============================================================
+   08 — EL ENCARGO
+   ============================================================ */
+
+.terms{
+  display: grid; gap: 0;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--stone-dim);
+}
+@media (min-width: 760px){ .terms{ grid-template-columns: repeat(3, 1fr); } }
+.term{
+  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+  border-bottom: 1px solid var(--stone-dim);
+}
+@media (min-width: 760px){
+  .term{ border-bottom: 0; padding-right: clamp(1.25rem, 3vw, 2.5rem); }
+  .term + .term{ border-left: 1px solid var(--stone-dim); padding-left: clamp(1.25rem, 3vw, 2.5rem); }
+}
+.term__n{ font-family: var(--serif); font-size: clamp(2.1rem, 4.2vw, 3.4rem); line-height: 1; letter-spacing: -.02em; display: block; font-variant-numeric: tabular-nums; }
+.term__k{ font-family: var(--mono); font-size: var(--t-micro); letter-spacing: .19em; text-transform: uppercase; color: var(--brass); display: block; margin-bottom: .9rem; }
+.term p{ margin: .8rem 0 0; font-size: .9062rem; color: var(--stone); max-width: 28ch; line-height: 1.55; }
+
+.steps{ display: grid; gap: 0; margin-top: clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--stone-dim); }
+.step{
+  display: grid; gap: .5rem 2rem; align-items: baseline;
+  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+  border-bottom: 1px solid var(--stone-dim);
+}
+@media (min-width: 820px){ .step{ grid-template-columns: 3.5rem 15rem minmax(0,1fr); } }
+.step__r{ font-family: var(--serif); font-style: italic; font-size: 1.4rem; color: var(--brass); }
+.step__t{ font-family: var(--serif); font-size: 1.5rem; line-height: 1.1; }
+.step__t small{ display: block; font-family: var(--mono); font-size: var(--t-micro); letter-spacing: .18em; text-transform: uppercase; color: var(--stone); margin-top: .35rem; }
+.step p{ margin: 0; color: var(--bone-dim); max-width: 52ch; font-size: .9688rem; }
+
+/* closing */
+.close{
+  padding-block: clamp(6rem, 15vh, 12rem);
+  border-top: 1px solid var(--stone-dim);
+  background: var(--ink-deep);
+}
+.close__big{
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 8.5vw, 8rem);
+  line-height: .92; letter-spacing: -.025em;
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+  max-width: 15ch;
+  text-wrap: balance;
+}
+.close__big em{ font-style: italic; color: var(--brass); }
+
+.cta{
+  display: inline-flex; align-items: baseline; gap: 1.1rem;
+  border-bottom: 1px solid var(--brass);
+  padding-bottom: .55rem;
+  font-family: var(--serif); font-size: clamp(1.35rem, 2.6vw, 2rem);
+  transition: gap .4s cubic-bezier(.2,.7,.3,1), color .3s ease;
+}
+.cta:hover{ gap: 1.9rem; color: var(--brass); }
+.cta .micro{ color: var(--brass); }
+
+.founder{
+  margin-top: clamp(3.5rem, 8vw, 6rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--stone-dim);
+  display: grid; gap: 1.25rem;
+}
+@media (min-width: 900px){ .founder{ grid-template-columns: 13.5rem minmax(0,1fr); gap: clamp(2.5rem,5vw,6rem); } }
+.founder__n{ font-family: var(--serif); font-size: 1.5rem; line-height: 1.15; }
+.founder__n small{ display: block; font-family: var(--mono); font-size: var(--t-micro); letter-spacing: .18em; text-transform: uppercase; color: var(--brass); margin-top: .4rem; }
+.founder p{ margin: 0; color: var(--bone-dim); max-width: 62ch; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+footer{
+  border-top: 1px solid var(--stone-dim);
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+  background: var(--ink);
+}
+.foot{
+  display: grid; gap: 1.75rem;
+  align-items: start;
+}
+@media (min-width: 780px){ .foot{ grid-template-columns: minmax(0,1fr) auto auto; gap: 3rem; } }
+.foot__mark{ display: flex; align-items: center; gap: .7rem; color: var(--bone); }
+.foot__mark svg{ width: 15px; height: 15px; color: var(--brass); }
+.foot__mark b{ font-family: var(--mono); font-size: var(--t-micro); font-weight: 500; letter-spacing: .21em; text-transform: uppercase; }
+.foot p{ margin: .9rem 0 0; color: var(--stone); max-width: 38ch; font-size: .875rem; }
+.foot__col{ display: flex; flex-direction: column; gap: .55rem; color: var(--stone); }
+.foot__col a{ transition: color .3s ease; }
+.foot__col a:hover{ color: var(--brass); }
+.foot__col span:first-child{ color: var(--brass-lo); }
+
+/* ---------- scroll reveal ---------- */
+[data-r]{ transition: opacity .95s cubic-bezier(.2,.7,.25,1), transform .95s cubic-bezier(.2,.7,.25,1); }
+.hid{ opacity: 0; transform: translate3d(0, 2.2rem, 0); }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  .hid{ opacity: 1 !important; transform: none !important; }
+  .hero__img{ animation: none; transform: scale(1.04); }
+}
+</style>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="bar" id="bar">
+  <a class="mark" href="#top" aria-label="San Miguel Customs, back to top">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 13.55 9.18 20.49 3.51 14.82 10.45 24 12 14.82 13.55 20.49 20.49 13.55 14.82 12 24 10.45 14.82 3.51 20.49 9.18 13.55 0 12 9.18 10.45 3.51 3.51 10.45 9.18Z" fill="currentColor"/></svg>
+    <b>San&nbsp;Miguel&nbsp;Customs</b>
+    <i>— MX</i>
+  </a>
+  <a class="bar-cta" href="#encargo">Encargar un vocho <span aria-hidden="true">&rarr;</span></a>
+</header>
+
+<div class="rail" aria-hidden="true">
+  <div class="rail__line"></div>
+  <div class="rail__dot" id="railDot"></div>
+  <div class="rail__tag" id="railTag"><b>00</b> &nbsp;— &nbsp;San Miguel de Allende</div>
+</div>
+
+<main id="top">
+
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section class="hero" data-ground="ink" data-ch="00" data-es="San Miguel de Allende">
+    <div class="hero__img" role="img" aria-label="A black Volkswagen Beetle with chrome bumpers, whitewall tyres and a single tan suitcase on the roof rack, parked on a cobbled street in San Miguel de Allende at golden hour. The plate reads VOCHO 1 — San Miguel Customs."></div>
+    <div class="hero__veil"></div>
+
+    <div class="hero__inner">
+      <div class="hero__eyebrow micro">
+        <span>San Miguel de Allende</span>
+        <em>Guanajuato · México</em>
+        <em>20.9153° N · 100.7436° O</em>
+      </div>
+
+      <h1 class="hero__word">vocho</h1>
+
+      <div class="hero__foot">
+        <p class="hero__lead">Body-off restomod and electric conversion, built where the car became an icon.</p>
+        <dl class="spec-row">
+          <div class="spec"><dt>Construcción</dt><dd>Body-off restomod</dd></div>
+          <div class="spec"><dt>Tracción</dt><dd>Primero EV</dd></div>
+          <div class="spec"><dt>Producción</dt><dd>6–15 al año</dd></div>
+          <div class="spec"><dt>Cola</dt><dd>Un coche a la vez</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ TICKER ══════════════════ -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <div class="ticker__set">
+        <span>El <b>vocho</b></span><span>Puebla 1964–2003</span><span><b>21,529,464</b> built</span>
+        <span>Hecho a mano en el Bajío</span><span>Body-off restomod</span><span><b>Primero</b> EV platform</span>
+        <span>Palma · Cuero · Latón</span><span>San Miguel de Allende</span>
+      </div>
+      <div class="ticker__set">
+        <span>El <b>vocho</b></span><span>Puebla 1964–2003</span><span><b>21,529,464</b> built</span>
+        <span>Hecho a mano en el Bajío</span><span>Body-off restomod</span><span><b>Primero</b> EV platform</span>
+        <span>Palma · Cuero · Latón</span><span>San Miguel de Allende</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ 01 · LA PREMISA ══════════════════ -->
+  <section class="ch" id="premisa" data-ground="ink" data-ch="01" data-es="La premisa">
+    <div class="wrap field">
+      <div class="ch-head" data-r>
+        <span class="ch-num">01</span>
+        <span class="ch-es">La premisa</span>
+        <span class="ch-en">The premise</span>
+      </div>
+      <div>
+        <h2 class="statement" data-r>Mexico's most beloved car never really <em>left</em>.</h2>
+        <div class="two-col" data-r>
+          <div class="prose">
+            <p>The Beetle rolled off the line at Puebla in 1964 and became something its engineers never drew: a piece of Mexican identity. Shortened to <span class="es">vocho</span>, it carried families, taxi fleets, and six decades of street life.</p>
+          </div>
+          <div class="prose">
+            <p>Nobody has rebuilt it to the standard the car deserves — <strong>real craft, real engineering, and a story that could only come from here</strong>.</p>
+            <p>So we are building it. One at a time, in the Bajío, with the trades that have been here longer than the car has.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ 02 · EL NOMBRE ══════════════════ -->
+  <section class="name" id="nombre" data-ground="ink" data-ch="02" data-es="El nombre">
+    <div class="name__pin">
+
+      <div class="name__head">
+        <div class="wrap field" style="padding-inline:0">
+          <div class="ch-head">
+            <span class="ch-num">02</span>
+            <span class="ch-es">El nombre</span>
+            <span class="ch-en">The name</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="morph" id="morph" role="img" aria-label="The letters v and o from Volkswagen joining c, h and o from bicho to spell vocho.">
+        <div class="morph__line" id="lineA">
+          <span class="morph__tag">Alemán</span><!--
+       --><span class="lt" data-keep>v</span><!--
+       --><span class="lt" data-keep>o</span><!--
+       --><span class="lt">l</span><span class="lt">k</span><span class="lt">s</span><span class="lt">w</span><span class="lt">a</span><span class="lt">g</span><span class="lt">e</span><span class="lt">n</span>
+        </div>
+        <div class="morph__line" id="lineB">
+          <span class="morph__tag">Español</span><!--
+       --><span class="lt">b</span><span class="lt">i</span><!--
+       --><span class="lt" data-keep>c</span><!--
+       --><span class="lt" data-keep>h</span><!--
+       --><span class="lt" data-keep>o</span>
+        </div>
+        <div class="morph__result" aria-hidden="true">vocho</div>
+      </div>
+
+      <div class="morph__cap">
+        <span class="micro">Una versión / One telling</span>
+        <p id="morphCap">Nobody in Mexico agrees on where the word came from — a clipping of <em>Volkswagen</em>, or <em>VO</em> fused with <em>bicho</em>, “bug.” What isn't in question is the affection in it. The word took a German car and made it local. It is the single most valuable thing in this business, and it costs nothing to inherit.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════ PLATE BREAK ══════════════════ -->
+  <div class="plate">
+    <div class="plate__img" role="img" aria-label="Rear of the black Beetle in close-up: chrome overrider bumper, oval tail lamps, and a white licence plate reading VOCHO — SAN MIGUEL CUSTOMS."></div>
+    <div class="plate__cap micro">
+      <span>Placa trasera · <b>Vocho</b> · San Miguel Customs</span>
+      <span>Fig. 02 — <b>Nomenclatura</b></span>
+    </div>
+  </div>
+
+  <!-- ══════════════════ 03 · LA AUSENCIA (bone) ══════════════════ -->
+  <section class="ch bone" id="ausencia" data-ground="bone" data-ch="03" data-es="La ausencia">
+    <div class="wrap field">
+      <div class="ch-head" data-r>
+        <span class="ch-num">03</span>
+        <span class="ch-es">La ausencia</span>
+        <span class="ch-en">The absence</span>
+      </div>
+      <div>
+        <h2 class="statement" data-r>A category with no <em>Latin American</em> voice.</h2>
+        <div class="prose" data-r style="max-width:66ch">
+          <p>ICON, Singer, Everrati and JIA have built serious businesses reviving iconic platforms with modern engineering. Every one of them is based in the US, the UK or Japan, working on Broncos, 911s and Land Cruisers. <strong>None are building the car that means the most to Mexico. None are building in Mexico.</strong></p>
+        </div>
+
+        <div class="figs" data-r>
+          <div class="fig">
+            <span class="fig__n">Zero</span>
+            <p>Restomod houses at this tier building anywhere in Latin America.</p>
+          </div>
+          <div class="fig">
+            <span class="fig__n"><span data-count="21.5" data-dec="1">0.0</span><span class="fig__u">million</span></span>
+            <p>Beetles produced — the longest single-model run in the industry, 1938 to 2003.</p>
+          </div>
+          <div class="fig">
+            <span class="fig__n"><span data-count="60">0</span><span class="fig__u">years</span></span>
+            <p>Of accumulated cultural equity in Mexico, already paid for.</p>
+          </div>
+        </div>
+
+        <div class="tbl-wrap" data-r>
+          <table>
+            <caption class="micro" style="text-align:left;padding:.9rem 0;color:#6E665A;caption-side:top">El panorama — the landscape</caption>
+            <thead>
+              <tr><th scope="col">House</th><th scope="col">Platform</th><th scope="col">Base</th><th scope="col">Cultural roots</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">ICON</th><td>Bronco, Toyota FJ</td><td>USA</td><td>American off-road</td></tr>
+              <tr><th scope="row">Singer</th><td>Porsche 911</td><td>USA / UK</td><td>European sports car</td></tr>
+              <tr><th scope="row">Everrati</th><td>Porsche, Land Rover</td><td>UK</td><td>British motoring</td></tr>
+              <tr><th scope="row">JIA</th><td>Land Rover Defender</td><td>UK</td><td>British motoring</td></tr>
+              <tr class="us"><th scope="row">San Miguel Customs</th><td>VW Beetle — <span class="es">vocho</span></td><td>México</td><td>Mexican — unclaimed</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="tbl-note">We are not in their lane. We are adjacent to it, on a platform none of them can credibly claim.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ 04 · LA CONSTRUCCIÓN ══════════════════ -->
+  <section class="build" id="construccion" data-ground="ink" data-ch="04" data-es="La construcción">
+    <div class="build__pin">
+      <div class="build__track" id="buildTrack">
+
+        <article class="stage">
+          <div class="ch-head" style="margin-bottom:1.75rem">
+            <span class="ch-num">04</span>
+            <span class="ch-es">La construcción</span>
+            <span class="ch-en">The build</span>
+          </div>
+          <h2 class="statement" style="font-size:clamp(2.2rem,4.6vw,3.6rem);margin-bottom:1.5rem">Every panel off. Nothing left to <em>guesswork</em>.</h2>
+          <p style="color:var(--bone-dim);max-width:34ch;margin:0">Four stages, one car at a time, in a single queue. The exterior reads exactly as it should. The platform underneath does not.</p>
+        </article>
+
+        <article class="stage">
+          <div class="stage__bg" style="background-image:var(--i-hero);background-position:60% 70%"></div>
+          <p class="stage__n">I</p>
+          <h3 class="stage__t">Despiece <span class="micro" style="display:block;color:var(--stone);margin-top:.5rem">Strip</span></h3>
+          <p>The shell comes off the pan and goes to bare metal. Everything that was ever bolted on is catalogued, tagged, and either restored or replaced. Nothing is painted over.</p>
+          <div class="stage__meta micro"><span><b>—</b> Body off pan</span><span><b>—</b> Bare metal</span><span><b>—</b> Full catalogue</span></div>
+        </article>
+
+        <article class="stage">
+          <div class="stage__bg" style="background-image:var(--i-plate);background-position:50% 40%"></div>
+          <p class="stage__n">II</p>
+          <h3 class="stage__t">Metal y acabado <span class="micro" style="display:block;color:var(--stone);margin-top:.5rem">Metal &amp; finish</span></h3>
+          <p>Corrected, refinished, and put back true. Chrome re-plated, glass replaced, whitewalls and roof rack correct to the period. The car has to be right before it is interesting.</p>
+          <div class="stage__meta micro"><span><b>—</b> Re-plated chrome</span><span><b>—</b> New glass</span><span><b>—</b> Period-correct</span></div>
+        </article>
+
+        <article class="stage">
+          <div class="stage__bg" style="background-image:var(--i-primero);background-position:50% 45%"></div>
+          <p class="stage__n">III</p>
+          <h3 class="stage__t">Primero <span class="micro" style="display:block;color:var(--stone);margin-top:.5rem">Drivetrain</span></h3>
+          <p>The pan comes back with a different heart. Our own conversion system — engineered, not adapted — badged and finished to the same standard as the coachwork around it.</p>
+          <div class="stage__meta micro"><span><b>—</b> Bespoke EV</span><span><b>—</b> Real torque</span><span><b>—</b> Serviceable in-market</span></div>
+        </article>
+
+        <article class="stage">
+          <div class="stage__bg" style="background-image:var(--i-cabin);background-position:44% 55%"></div>
+          <p class="stage__n">IV</p>
+          <h3 class="stage__t">Guarnición <span class="micro" style="display:block;color:var(--stone);margin-top:.5rem">Trim</span></h3>
+          <p>Palm, leather, textile, brass. The last stretch of the build is the slowest, and it is the part an owner touches every day. It is done by hand, by people whose families have done it for generations.</p>
+          <div class="stage__meta micro"><span><b>—</b> Hand-woven</span><span><b>—</b> Hand-stitched</span><span><b>—</b> Bajío trades</span></div>
+        </article>
+
+      </div>
+      <div class="build__hint micro" aria-hidden="true"><span>Desplázate</span><i></i></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ 05 · EL INTERIOR ══════════════════ -->
+  <section class="ch" id="interior" data-ground="ink" data-ch="05" data-es="El interior">
+    <div class="wrap field">
+      <div class="ch-head" data-r>
+        <span class="ch-num">05</span>
+        <span class="ch-es">El interior</span>
+        <span class="ch-en">The interior</span>
+      </div>
+      <div>
+        <h2 class="statement" data-r>The craft is the <em>argument</em>.</h2>
+        <div class="prose" data-r style="max-width:64ch">
+          <p>Hand-woven palm on the dash. Saddle leather where vinyl was. Regional weaving set into the seats, from the same trades the Bajío has run for generations. This is where “built in San Miguel” stops being an address and becomes the product itself.</p>
+        </div>
+
+        <div class="craft" data-r>
+          <div class="mats" role="tablist" aria-label="Interior materials">
+            <button class="mat" role="tab" id="m0" aria-selected="true" aria-controls="matview" data-img="cabin" data-pos="30% 34%" data-zoom="230%" data-cap="Palm woven by hand in the Bajío, set into the dash face and the parcel shelf.">
+              <span class="mat__dot" aria-hidden="true"></span>
+              <span><span class="mat__es">Palma tejida</span><span class="mat__en">Woven palm dash</span></span>
+            </button>
+            <button class="mat" role="tab" id="m1" aria-selected="false" aria-controls="matview" data-img="cabin" data-pos="86% 52%" data-zoom="240%" data-cap="Saddle-tan hide replaces the original vinyl on every surface a hand reaches.">
+              <span class="mat__dot" aria-hidden="true"></span>
+              <span><span class="mat__es">Cuero de silla</span><span class="mat__en">Saddle-tan leather</span></span>
+            </button>
+            <button class="mat" role="tab" id="m2" aria-selected="false" aria-controls="matview" data-img="cabin" data-pos="44% 88%" data-zoom="235%" data-cap="Regional weaving inlaid into the seat faces — the same loom, a different object.">
+              <span class="mat__dot" aria-hidden="true"></span>
+              <span><span class="mat__es">Textil del Bajío</span><span class="mat__en">Regional textile inlay</span></span>
+            </button>
+            <button class="mat" role="tab" id="m3" aria-selected="false" aria-controls="matview" data-img="shelf" data-pos="16% 40%" data-zoom="215%" data-cap="Brass fittings and stitched leather pulls, made to be handled for fifty years.">
+              <span class="mat__dot" aria-hidden="true"></span>
+              <span><span class="mat__es">Latón y costura</span><span class="mat__en">Brass &amp; stitched hardware</span></span>
+            </button>
+          </div>
+
+          <div class="plate-view" id="matview" role="tabpanel" aria-live="polite" aria-labelledby="m0">
+            <div class="plate-view__l on" id="layerA" style="background-image:var(--i-cabin);background-position:30% 34%;background-size:230% auto"></div>
+            <div class="plate-view__l" id="layerB"></div>
+            <div class="plate-view__cap">
+              <p id="matCap">Palm woven by hand in the Bajío, set into the dash face and the parcel shelf.</p>
+              <span class="micro">Fig. 05</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ 06 · PRIMERO ══════════════════ -->
+  <section class="ch primero" id="primero" data-ground="ink" data-ch="06" data-es="Primero">
+    <div class="wrap field">
+      <div class="ch-head" data-r>
+        <span class="ch-num">06</span>
+        <span class="ch-es">Primero</span>
+        <span class="ch-en">The platform</span>
+      </div>
+      <div>
+        <h2 class="statement" data-r>Our own EV platform — engineered, <em>not adapted</em>.</h2>
+        <div class="two-col" data-r>
+          <div class="prose">
+            <p>A purpose-built conversion system, badged and finished to the same standard as the coachwork around it. Real range, real torque, serviceable in-market.</p>
+          </div>
+          <div class="prose">
+            <p><strong>The exterior looks backward. Everything underneath is pointed the other way.</strong></p>
+            <p>Named for its place as the first proprietary system in the house — the spine every future platform will share.</p>
+          </div>
+        </div>
+
+        <div class="bay" id="bay" data-r>
+          <div class="bay__img" role="img" aria-label="The Beetle's rear deck lid open, showing the Primero electric drivetrain: an engraved motor cover, brass-bodied high-voltage junctions, copper cabling and a chased copper reservoir, with a black and gold plate reading primero — San Miguel."></div>
+          <button class="hot" type="button" style="left:50%;  top:20%" data-annot="0" aria-describedby="an0" aria-label="Inversor / inverter"></button>
+          <button class="hot" type="button" style="left:34%;  top:50%" data-annot="1" aria-describedby="an1" aria-label="Unión de alta tensión / high-voltage junction"></button>
+          <button class="hot" type="button" style="left:48.5%;top:66%" data-annot="2" aria-describedby="an2" aria-label="Motor"></button>
+          <button class="hot" type="button" style="left:72%;  top:46%" data-annot="3" aria-describedby="an3" aria-label="Depósito / coolant reservoir"></button>
+        </div>
+
+        <div class="annots" data-r id="annots">
+          <div class="annot on" id="an0">
+            <span class="annot__k">A</span>
+            <h3 class="annot__t">Inversor</h3>
+            <p>Sealed and engraved to match the coachwork. Serviceable without lifting the pan.</p>
+          </div>
+          <div class="annot" id="an1">
+            <span class="annot__k">B</span>
+            <h3 class="annot__t">Unión de alta tensión</h3>
+            <p>Brass-bodied contactors and cloth-braided HV cable, terminated by hand.</p>
+          </div>
+          <div class="annot" id="an2">
+            <span class="annot__k">C</span>
+            <h3 class="annot__t">Motor</h3>
+            <p>The <span class="es">primero</span> cover — cast, then chased with the house rosette.</p>
+          </div>
+          <div class="annot" id="an3">
+            <span class="annot__k">D</span>
+            <h3 class="annot__t">Depósito</h3>
+            <p>Chased copper coolant reservoir, sized so the bay reads as one object.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ 07 · EL LUGAR ══════════════════ -->
+  <section class="ch" id="lugar" data-ground="ink" data-ch="07" data-es="El lugar">
+    <div class="wrap field">
+      <div class="ch-head" data-r>
+        <span class="ch-num">07</span>
+        <span class="ch-es">El lugar</span>
+        <span class="ch-en">The place</span>
+      </div>
+      <div>
+        <h2 class="statement" data-r>The place is not the setting. It is the <em>product</em>.</h2>
+
+        <div class="reasons" data-r>
+          <div class="reason">
+            <span class="reason__r">I</span>
+            <div>
+              <h3>Artisan access</h3>
+              <p>Generational leatherwork, weaving and metalwork trades within driving distance — the same hands already on this build.</p>
+            </div>
+          </div>
+          <div class="reason">
+            <span class="reason__r">II</span>
+            <div>
+              <h3>Cost structure</h3>
+              <p>Skilled fabrication labour at a fraction of US and UK restomod-house rates, with no compromise to the finish standard.</p>
+            </div>
+          </div>
+          <div class="reason">
+            <span class="reason__r">III</span>
+            <div>
+              <h3>Cultural authority</h3>
+              <p>A Mexican-built <span class="es">vocho</span>, made in the Bajío, is a claim no shop in California or Oxfordshire can make.</p>
+            </div>
+          </div>
+          <div class="reason">
+            <span class="reason__r">IV</span>
+            <div>
+              <h3>Logistics</h3>
+              <p>A central Mexico base with workable routes into both the US collector market and the domestic enthusiast market.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ 08 · EL ENCARGO ══════════════════ -->
+  <section class="ch" id="encargo" data-ground="ink" data-ch="08" data-es="El encargo">
+    <div class="wrap field">
+      <div class="ch-head" data-r>
+        <span class="ch-num">08</span>
+        <span class="ch-es">El encargo</span>
+        <span class="ch-en">The commission</span>
+      </div>
+      <div>
+        <h2 class="statement" data-r>Low volume, <em>by design</em>.</h2>
+        <div class="prose" data-r style="max-width:64ch">
+          <p>Scarcity and finish standard set the price, not throughput. Every car is spec'd with its owner — colour, hide, textile, powertrain configuration.</p>
+        </div>
+
+        <div class="terms" data-r>
+          <div class="term">
+            <span class="term__k">Producción</span>
+            <span class="term__n">6–15</span>
+            <p>Builds a year at full capacity. One car in the queue at a time.</p>
+          </div>
+          <div class="term">
+            <span class="term__k">Encargo</span>
+            <span class="term__n">$60–100K</span>
+            <p>Target commission per build, USD, specification dependent.</p>
+          </div>
+          <div class="term">
+            <span class="term__k">Primera entrega</span>
+            <span class="term__n">12 <span class="fig__u" style="font-size:.38em">months</span></span>
+            <p>From the first commission to the first car leaving San Miguel.</p>
+          </div>
+        </div>
+
+        <div class="steps" data-r>
+          <div class="step">
+            <span class="step__r">I</span>
+            <div class="step__t">Conversación <small>The specification</small></div>
+            <p>We sit down with the car and with you. Colour, hide, textile, wheel, powertrain configuration — every decision recorded before a panel comes off.</p>
+          </div>
+          <div class="step">
+            <span class="step__r">II</span>
+            <div class="step__t">Construcción <small>The build</small></div>
+            <p>Body off, metal corrected, <span class="es">Primero</span> fitted, trim by hand. Photographed through every stage so you see the car the way we do.</p>
+          </div>
+          <div class="step">
+            <span class="step__r">III</span>
+            <div class="step__t">Entrega <small>Delivery</small></div>
+            <p>Delivered out of San Miguel de Allende, with routes into both the US collector market and the domestic Mexican market.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ CLOSING ══════════════════ -->
+  <section class="close" data-ground="ink" data-ch="08" data-es="El encargo">
+    <div class="wrap">
+      <h2 class="close__big" data-r>Build the first one. Build the <em>house</em> around it.</h2>
+      <p data-r style="max-width:56ch;color:var(--bone-dim);margin:0 0 clamp(2.5rem,5vw,4rem)">
+        San Miguel Customs opens with the <span class="es">Vocho</span> series. The Combi line and the truck line follow. Commissions and private enquiries are taken directly.
+      </p>
+      <a class="cta" href="mailto:hola@sanmiguelcustoms.mx?subject=Vocho%20commission" data-r>
+        <span class="micro">Escríbenos</span>
+        hola@sanmiguelcustoms.mx
+      </a>
+
+      <div class="founder" data-r>
+        <div class="founder__n">Darren Marshall <small>Fundador</small></div>
+        <p>Two decades across design and product leadership — digital agencies, venture studios, and 0-to-1 go-to-market. Based in San Miguel de Allende. A fabrication lead, EV systems engineer and logistics partner are in active scouting.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer data-ground="ink">
+  <div class="wrap foot">
+    <div>
+      <div class="foot__mark">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0 13.55 9.18 20.49 3.51 14.82 10.45 24 12 14.82 13.55 20.49 20.49 13.55 14.82 12 24 10.45 14.82 3.51 20.49 9.18 13.55 0 12 9.18 10.45 3.51 3.51 10.45 9.18Z" fill="currentColor"/></svg>
+        <b>San Miguel Customs</b>
+      </div>
+      <p>Coachbuilding and electric conversion. San Miguel de Allende, Guanajuato, México — 20.9153° N, 100.7436° O.</p>
+    </div>
+    <div class="foot__col micro">
+      <span>Índice</span>
+      <a href="#nombre">El nombre</a>
+      <a href="#construccion">La construcción</a>
+      <a href="#primero">Primero</a>
+      <a href="#encargo">El encargo</a>
+    </div>
+    <div class="foot__col micro">
+      <span>Contacto</span>
+      <a href="mailto:hola@sanmiguelcustoms.mx">hola@sanmiguelcustoms.mx</a>
+      <span style="color:var(--stone)">Bajío, México</span>
+      <span style="color:var(--stone-dim)">© 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var raf = window.requestAnimationFrame.bind(window);
+  function clamp(v,a,b){ return v<a?a:v>b?b:v; }
+  function ease(t){ return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+
+  /* ---------------- reveals: only hide what is below the first frame ---------------- */
+  var targets = [].slice.call(document.querySelectorAll("[data-r]"));
+  if (!reduce && "IntersectionObserver" in window) {
+    var pending = [];
+    targets.forEach(function(el){
+      if (el.getBoundingClientRect().top > window.innerHeight * 1.05) { el.classList.add("hid"); pending.push(el); }
+    });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.remove("hid"); io.unobserve(e.target); }
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.08 });
+    pending.forEach(function(el){ io.observe(el); });
+    /* failsafe: nothing stays hidden */
+    setTimeout(function(){ pending.forEach(function(el){ el.classList.remove("hid"); }); }, 6000);
+  }
+
+  /* ---------------- count-up figures ---------------- */
+  var counters = [].slice.call(document.querySelectorAll("[data-count]"));
+  function runCount(el){
+    var to = parseFloat(el.getAttribute("data-count"));
+    var dec = parseInt(el.getAttribute("data-dec") || "0", 10);
+    if (reduce) { el.textContent = to.toFixed(dec); return; }
+    var t0 = performance.now(), dur = 1100;
+    (function step(now){
+      var p = clamp((now - t0) / dur, 0, 1);
+      el.textContent = (to * ease(p)).toFixed(dec);
+      if (p < 1) raf(step);
+    })(t0);
+  }
+  if ("IntersectionObserver" in window) {
+    var cio = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) { runCount(e.target); cio.unobserve(e.target); } });
+    }, { threshold: .6 });
+    counters.forEach(function(el){ cio.observe(el); });
+  } else { counters.forEach(runCount); }
+
+  /* ---------------- chapter rail + chrome inversion ---------------- */
+  var bar = document.getElementById("bar");
+  var railTag = document.getElementById("railTag");
+  var railDot = document.getElementById("railDot");
+  var progress = document.getElementById("progress");
+  var sections = [].slice.call(document.querySelectorAll("[data-ch]"));
+
+  function setChapter(sec){
+    var n = sec.getAttribute("data-ch"), es = sec.getAttribute("data-es");
+    railTag.innerHTML = "<b>" + n + "</b> &nbsp;—&nbsp; " + es;
+    var g = sec.getAttribute("data-ground") || "ink";
+    if (document.documentElement.getAttribute("data-ground") !== g) {
+      document.documentElement.setAttribute("data-ground", g);
+    }
+  }
+  document.documentElement.setAttribute("data-ground", "ink");
+
+  /* ---------------- the etymology morph ---------------- */
+  var nameSec = document.getElementById("nombre");
+  var lineA = document.getElementById("lineA");
+  var lineB = document.getElementById("lineB");
+  var morphCap = document.getElementById("morphCap");
+  var dims = null;
+
+  function measure(){
+    if (!lineA || !lineB) return;
+    var all = [].slice.call(document.querySelectorAll(".morph__line .lt"));
+    all.forEach(function(s){ s.style.transform = ""; s.style.marginRight = ""; s.style.opacity = ""; });
+    lineA.style.transform = ""; lineB.style.transform = "";
+    var keepA = 0, keepB = 0, drop = [];
+    all.forEach(function(s){
+      var w = s.getBoundingClientRect().width;
+      s.__w = w;
+      var inA = s.parentNode === lineA;
+      if (s.hasAttribute("data-keep")) { if (inA) keepA += w; else keepB += w; }
+      else drop.push(s);
+    });
+    dims = {
+      wa: keepA, wb: keepB,
+      gap: lineB.getBoundingClientRect().top - lineA.getBoundingClientRect().top,
+      drop: drop
+    };
+  }
+
+  function paintMorph(p){
+    if (!dims) return;
+    var pc = clamp((p - .05) / .45, 0, 1);
+    var n = dims.drop.length;
+    dims.drop.forEach(function(s, i){
+      var kf = n > 1 ? i / (n - 1) : 0;
+      var lp = clamp((pc - kf * .4) / .6, 0, 1);
+      var e = ease(lp);
+      s.style.transform = "translateY(" + (-0.16 * e) + "em) scaleX(" + (1 - e) + ")";
+      s.style.marginRight = (-s.__w * e) + "px";
+      s.style.opacity = String(1 - e);
+    });
+    var pm = ease(clamp((p - .52) / .34, 0, 1));
+    lineA.style.transform = "translate(" + (-dims.wb / 2 * pm) + "px," + (dims.gap / 2 * pm) + "px)";
+    lineB.style.transform = "translate(" + (dims.wa / 2 * pm) + "px," + (-dims.gap / 2 * pm) + "px)";
+    var tagOp = String(clamp(1 - p / .4, 0, 1));
+    [].slice.call(document.querySelectorAll(".morph__tag")).forEach(function(t){ t.style.opacity = tagOp; });
+  }
+
+  /* ---------------- pinned horizontal build ---------------- */
+  var buildSec = document.getElementById("construccion");
+  var buildTrack = document.getElementById("buildTrack");
+  var pinBuild = false;
+
+  function layoutBuild(){
+    if (!buildSec || !buildTrack) return;
+    pinBuild = window.innerWidth >= 860 && !reduce;
+    buildSec.classList.toggle("build--stacked", !pinBuild);
+    if (pinBuild) {
+      buildTrack.style.transform = "";
+      var over = Math.max(buildTrack.scrollWidth - window.innerWidth, 0);
+      buildSec.style.height = (window.innerHeight + over * 1.06) + "px";
+    } else {
+      buildSec.style.height = "";
+      buildTrack.style.transform = "none";
+    }
+    if (nameSec) nameSec.classList.toggle("name--static", reduce);
+  }
+
+  function paintBuild(){
+    if (!pinBuild || !buildSec || !buildTrack) return;
+    var r = buildSec.getBoundingClientRect();
+    var total = buildSec.offsetHeight - window.innerHeight;
+    var p = clamp(-r.top / (total || 1), 0, 1);
+    var over = buildTrack.scrollWidth - window.innerWidth;
+    buildTrack.style.transform = "translate3d(" + (-p * Math.max(over, 0)) + "px,0,0)";
+  }
+
+  /* ---------------- master scroll loop ---------------- */
+  var ticking = false, lastCh = null;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    raf(function(){
+      ticking = false;
+      var y = window.pageYOffset || document.documentElement.scrollTop;
+      var doc = document.documentElement.scrollHeight - window.innerHeight;
+
+      progress.style.width = (clamp(y / (doc || 1), 0, 1) * 100) + "%";
+      bar.classList.toggle("bar--set", y > 60);
+
+      /* rail dot travels the rail */
+      var pct = clamp(y / (doc || 1), 0, 1);
+      railDot.style.top = "calc(22vh + " + (pct * 56) + "vh)";
+
+      /* active chapter = the section crossing 38% of the viewport */
+      var mark = window.innerHeight * .38, cur = sections[0];
+      for (var i = 0; i < sections.length; i++) {
+        var t = sections[i].getBoundingClientRect().top;
+        if (t <= mark) cur = sections[i];
+      }
+      if (cur !== lastCh) { lastCh = cur; setChapter(cur); }
+
+      if (nameSec && !reduce) {
+        var nr = nameSec.getBoundingClientRect();
+        var np = clamp(-nr.top / ((nameSec.offsetHeight - window.innerHeight) || 1), 0, 1);
+        paintMorph(np);
+      }
+      paintBuild();
+    });
+  }
+
+  /* ---------------- material selector ---------------- */
+  var IMGS = {
+    cabin: getComputedStyle(document.documentElement).getPropertyValue("--i-cabin"),
+    shelf: getComputedStyle(document.documentElement).getPropertyValue("--i-shelf")
+  };
+  var mats = [].slice.call(document.querySelectorAll(".mat"));
+  var layerA = document.getElementById("layerA");
+  var layerB = document.getElementById("layerB");
+  var matCap = document.getElementById("matCap");
+  var front = layerA, back = layerB, curImg = "cabin";
+
+  function selectMat(btn){
+    mats.forEach(function(b){
+      var on = b === btn;
+      b.setAttribute("aria-selected", String(on));
+      b.tabIndex = on ? 0 : -1;
+    });
+    var panel = document.getElementById("matview");
+    if (panel) panel.setAttribute("aria-labelledby", btn.id);
+    var img = btn.getAttribute("data-img");
+    var pos = btn.getAttribute("data-pos");
+    var zoom = btn.getAttribute("data-zoom");
+    if (matCap) matCap.textContent = btn.getAttribute("data-cap");
+
+    if (img === curImg) {
+      front.style.backgroundPosition = pos;
+      front.style.backgroundSize = zoom + " auto";
+    } else {
+      back.style.backgroundImage = IMGS[img];
+      back.style.backgroundSize = zoom + " auto";
+      back.style.backgroundPosition = pos;
+      back.classList.add("on");
+      front.classList.remove("on");
+      var t = front; front = back; back = t;
+      curImg = img;
+    }
+  }
+  mats.forEach(function(b, i){ b.tabIndex = i === 0 ? 0 : -1; });
+  mats.forEach(function(btn, i){
+    btn.addEventListener("click", function(){ selectMat(btn); });
+    btn.addEventListener("mouseenter", function(){ if (!reduce) selectMat(btn); });
+    btn.addEventListener("focus", function(){ selectMat(btn); });
+    btn.addEventListener("keydown", function(e){
+      var d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : (e.key === "ArrowUp" || e.key === "ArrowLeft" ? -1 : 0);
+      if (!d) return;
+      e.preventDefault();
+      mats[(i + d + mats.length) % mats.length].focus();
+    });
+  });
+
+  /* ---------------- primero hotspots ---------------- */
+  var hots = [].slice.call(document.querySelectorAll(".hot"));
+  var annots = [].slice.call(document.querySelectorAll(".annot"));
+  function highlight(idx){
+    annots.forEach(function(a, i){ a.classList.toggle("on", i === idx); });
+    hots.forEach(function(h, i){ if (i === idx) h.setAttribute("data-on",""); else h.removeAttribute("data-on"); });
+  }
+  hots.forEach(function(h, i){
+    h.addEventListener("mouseenter", function(){ highlight(i); });
+    h.addEventListener("focus", function(){ highlight(i); });
+    h.addEventListener("click", function(){ highlight(i); });
+  });
+
+  /* ---------------- boot ---------------- */
+  function relayout(){ measure(); layoutBuild(); onScroll(); }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  var rt;
+  window.addEventListener("resize", function(){ clearTimeout(rt); rt = setTimeout(relayout, 160); });
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(relayout);
+  }
+  relayout();
+  setTimeout(relayout, 700);
+})();
+</script>
