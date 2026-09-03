@@ -1,4 +1,7 @@
 .DS_Store
 .vercel
 .taskmaster
+.env
+.env.*
+!.env.example
 *.log
