@@ -620,6 +620,7 @@ html.js .label.rv--up.is-in::before{
 html.force-in .rv--up,
 html.force-in .rv--row,
 html.force-in .rv--plate .marca,
+html.force-in .abre__meta,
 html.force-in .abre__foot{ opacity: 1 !important; transform: none !important; }
 html.force-in .rv--lines .ln__i,
 html.force-in .abre__media{ transform: none !important; }
@@ -641,7 +642,7 @@ html.force-in .label.rv--up::before{ transform: none !important; }
   :root{
     --pad: 1.1rem;
     --sec: clamp(3.25rem, 11vw, 4.75rem);
-    --t-h1: clamp(1.2rem, 5.4vw, 1.45rem);
+    --t-h1: clamp(.98rem, 4.3vw, 1.18rem);
     --t-h2: clamp(1.4rem, 6.8vw, 1.8rem);
     --t-txt: 1.0625rem;
     --bar-h: calc(2.85rem + env(safe-area-inset-top, 0px));
@@ -727,22 +728,46 @@ html.force-in .label.rv--up::before{ transform: none !important; }
     margin: var(--bar-h) .65rem .65rem;
     border-radius: .35rem;
   }
-  .abre .ph{ background-position: 50% 50%; }
-  /* The desert plate carries a lit foreground — bumper, chrome, a white
-     licence plate — where the street plate carried shadow. The opening line
-     needs a deeper, taller scrim to sit on than the wide crop does. */
-  .abre::after{
-    background:
-      linear-gradient(to bottom, rgba(16,15,12,.44) 0%, rgba(16,15,12,.10) 15%, rgba(16,15,12,0) 28%),
-      linear-gradient(to top,
-        rgba(16,15,12,.92) 0%,
-        rgba(16,15,12,.82) 16%,
-        rgba(16,15,12,.62) 29%,
-        rgba(16,15,12,.28) 45%,
-        rgba(16,15,12,0)   67%);
+  /* ── the opening, set as a plate above a caption card ───────────────────
+     The photograph takes the top of the block and the copy sits under it
+     on white, in ink. Nothing is printed over the car, so the scrim is now
+     only a vignette on the photograph itself. */
+  .abre{
+    display: flex;
+    flex-direction: column;
   }
-  .abre__foot{ padding-bottom: 1.25rem; }
-  .abre__line{ max-width: 18ch; }
+  .abre__media{
+    position: relative;
+    inset: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .abre .ph{ background-position: 50% 58%; }
+  .abre::after{
+    inset: 0 0 auto;
+    height: 26%;
+    background: linear-gradient(to bottom, rgba(16,15,12,.34) 0%, rgba(16,15,12,.06) 62%, rgba(16,15,12,0) 100%);
+  }
+  .abre__foot{
+    position: relative;
+    left: auto; right: auto; bottom: auto;
+    flex: 0 0 auto;
+    /* an auto cross-axis margin cancels flex stretch, and the card has to
+       run the full width of the block */
+    margin-inline: 0;
+    align-self: stretch;
+    background: #fff;
+    color: var(--ink);
+    padding-block: 1.3rem 1.4rem;
+  }
+  .abre__meta{ color: var(--ink-2); }
+
+  /* the card is part of the block, so it unshutters with it rather than
+     fading in over it — only the copy inside is animated */
+  html.js .abre__foot{ opacity: 1; }
+  html.js .abre__meta{ opacity: 0; }
+  html.ready .abre__meta{ opacity: 1; transition: opacity .8s ease .62s; }
+  .abre__line{ max-width: 21ch; }
   .abre__meta{
     letter-spacing: .08em;
     line-height: 1.45;
@@ -800,6 +825,7 @@ html.force-in .label.rv--up::before{ transform: none !important; }
   html.js .rv--row,
   html.js .rv--plate .marca,
   html.js .abre__foot,
+  html.js .abre__meta,
   html.js .bar__nav a{ opacity: 1 !important; transform: none !important; }
   html.js .rv--lines .ln__i,
   html.js .mats__l{ transform: none !important; }
