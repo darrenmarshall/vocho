@@ -1,5 +1,12 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/vocho-mono.src.html" }
+    {
+      "source": "/",
+      "destination": "/vocho-mono.src.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.src.html"
+    }
   ]
 }
