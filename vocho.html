@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Vocho</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,16 +45,17 @@
   --t-lab: .6875rem;
   --t-cap: .8125rem;
 
-  --pad: clamp(1.25rem, 5vw, 5.5rem);
+  --pad: clamp(1.15rem, 5vw, 5.5rem);
   --max: 1440px;
   --sec: clamp(4.5rem, 10vh, 8.5rem);
+  --bar-h: calc(1.7rem + 1.35rem + 1px);
 
   color-scheme: light;
 }
 
 *{ box-sizing: border-box; }
 html{ -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-[id]{ scroll-margin-top: 4.5rem; }
+[id]{ scroll-margin-top: calc(var(--bar-h) + .75rem); }
 
 body{
   margin: 0;
@@ -128,11 +130,11 @@ h3{ font-size: var(--t-h3); line-height: 1.25; }
 /* ── opening ─────────────────────────────────────────────── */
 .abre{
   position: relative;
-  height: clamp(500px, calc(88vh - 5rem), 920px);
+  height: clamp(500px, calc(88svh - 5rem), 920px);
   overflow: hidden;
   isolation: isolate;
   background: var(--noir);
-  margin: calc(1.7rem + 1.35rem + 1px) clamp(1.4rem, 3.4vw, 2.4rem) clamp(1.4rem, 3.4vw, 2.4rem);
+  margin: var(--bar-h) clamp(1.4rem, 3.4vw, 2.4rem) clamp(1.4rem, 3.4vw, 2.4rem);
   border-radius: .45rem;
 }
 .abre .ph{
@@ -158,6 +160,7 @@ h3{ font-size: var(--t-h3); line-height: 1.25; }
   font-family: var(--sans); font-weight: 500;
   font-size: var(--t-h1); line-height: 1.24; letter-spacing: -.012em;
   max-width: 24ch; margin: 0;
+  text-wrap: balance;
 }
 .abre__meta{
   font-family: var(--sans); font-size: var(--t-lab); font-weight: 500;
@@ -170,6 +173,7 @@ h3{ font-size: var(--t-h3); line-height: 1.25; }
   position: fixed; top: 0; left: 0; right: 0; z-index: 40;
   display: flex; align-items: center; justify-content: space-between; gap: 1.25rem;
   padding: .85rem var(--pad);
+  padding-top: calc(.85rem + env(safe-area-inset-top, 0px));
   font-family: var(--sans);
   color: var(--ink);
   background: transparent;
@@ -289,7 +293,7 @@ tr.us td{ font-weight: 500; }
 .key-plate{ position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--noir); margin-top: clamp(2rem, 4vw, 3rem); }
 .key-plate .ph{ position: absolute; inset: 0; background-image: var(--i-primero); }
 .marca{
-  position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px;
+  position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px;
   display: grid; place-items: center;
 }
 .marca span{
@@ -365,6 +369,87 @@ tr.us td{ font-weight: 500; }
 /* ── reveal ──────────────────────────────────────────────── */
 [data-r]{ transition: opacity .8s ease, transform .8s cubic-bezier(.22,.7,.3,1); }
 .oculto{ opacity: 0; transform: translate3d(0, 1.25rem, 0); }
+
+/* ── mobile ──────────────────────────────────────────────── */
+@media (max-width: 720px){
+  :root{
+    --pad: 1.1rem;
+    --sec: clamp(3.25rem, 11vw, 4.75rem);
+    --t-h1: clamp(1.2rem, 5.4vw, 1.45rem);
+    --t-h2: clamp(1.4rem, 6.8vw, 1.8rem);
+    --t-txt: 1.0625rem;
+    --bar-h: calc(1.5rem + 1.2rem + env(safe-area-inset-top, 0px) + 1px);
+  }
+
+  body{ overflow-x: clip; }
+
+  .wrap,
+  .bleed .cap,
+  .abre__foot{
+    padding-inline: max(var(--pad), env(safe-area-inset-left, 0px)) max(var(--pad), env(safe-area-inset-right, 0px));
+  }
+  .bar{
+    gap: .75rem;
+    padding-inline: max(var(--pad), env(safe-area-inset-left, 0px)) max(var(--pad), env(safe-area-inset-right, 0px));
+  }
+
+  .bar__mark{ width: 3.55rem; height: 1.2rem; }
+  .bar__nav{
+    flex-wrap: nowrap;
+    gap: .2rem .7rem;
+    max-width: calc(100% - 4.1rem);
+  }
+  .bar__nav a{
+    letter-spacing: .06em;
+    white-space: nowrap;
+    font-size: .625rem;
+  }
+
+  .abre{
+    height: clamp(420px, calc(100svh - var(--bar-h) - 1.4rem), 640px);
+    margin: var(--bar-h) .7rem .7rem;
+    border-radius: .35rem;
+  }
+  .abre .ph{ background-position: 58% 48%; }
+  .abre__foot{ padding-bottom: 1.35rem; }
+  .abre__line{ max-width: 18ch; }
+  .abre__meta{
+    letter-spacing: .08em;
+    line-height: 1.45;
+    max-width: 28ch;
+  }
+
+  .bleed .ph{ height: clamp(220px, 46svh, 380px); }
+
+  h2{ max-width: 16ch; }
+  .lead{ font-size: 1.125rem; }
+
+  .tbl{
+    margin-inline: calc(var(--pad) * -1);
+    padding-inline: var(--pad);
+  }
+  table{ min-width: 30rem; }
+  th, td{ padding: .7rem 1rem .7rem 0; }
+
+  .cifra dt{ font-size: 1.55rem; }
+  .etapa{ gap: .15rem .85rem; }
+  .mats__view{ aspect-ratio: 5 / 4; }
+  .key-plate{ aspect-ratio: 4 / 3; }
+  .marca span{ width: 24px; height: 24px; font-size: .6875rem; }
+  .correo{ font-size: 1.125rem; word-break: break-word; }
+  .pie{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .65rem;
+  }
+  .colofon{ padding-bottom: calc(clamp(4rem, 9vh, 7.5rem) + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (max-width: 380px){
+  .bar__nav{ gap: .15rem .55rem; }
+  .bar__nav a{ letter-spacing: .04em; font-size: .5938rem; }
+  .abre__meta{ font-size: .625rem; }
+}
 
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior: auto; }
@@ -731,7 +816,9 @@ tr.us td{ font-weight: 500; }
   mats.forEach(function(b, i){
     b.tabIndex = i === 0 ? 0 : -1;
     b.addEventListener("click", function(){ pick(b); });
-    b.addEventListener("mouseenter", function(){ if (!reduce) pick(b); });
+    if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      b.addEventListener("mouseenter", function(){ if (!reduce) pick(b); });
+    }
     b.addEventListener("focus", function(){ pick(b); });
     b.addEventListener("keydown", function(e){
       var d = (e.key === "ArrowDown" || e.key === "ArrowRight") ? 1 : (e.key === "ArrowUp" || e.key === "ArrowLeft") ? -1 : 0;
