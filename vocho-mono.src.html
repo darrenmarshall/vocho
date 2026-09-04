@@ -252,9 +252,13 @@ html.nav-lock, html.nav-lock body{ overflow: hidden; }
 }
 .etim__set{ margin: clamp(1.25rem, 2.6vw, 2rem) 0 clamp(1.25rem, 2.6vw, 2rem); }
 .etim__line{
-  font-family: var(--sans); font-weight: 500;
-  font-size: clamp(2.1rem, 5.8vw, 4.8rem);
-  line-height: 1.14; letter-spacing: -.015em;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.6rem, 7.2vw, 5.75rem);
+  line-height: 1.12; letter-spacing: -.02em;
   color: var(--ink-3);
   white-space: nowrap;
   will-change: transform;
@@ -266,6 +270,14 @@ html.nav-lock, html.nav-lock body{ overflow: hidden; }
 }
 .etim__line .lt[data-keep]{ color: var(--ink); }
 .etim__out{ display: none; color: var(--ink); }
+.etim .cap{
+  text-align: center;
+  margin-inline: auto;
+  max-width: 38ch;
+}
+@media (min-width: 900px){
+  .etim .col{ grid-column: 1 / -1; }
+}
 
 /* ── the landscape ───────────────────────────────────────── */
 .tbl{ margin-top: clamp(2rem, 4vw, 3rem); overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -494,8 +506,9 @@ tr.us td{ font-weight: 500; }
   }
 
   .etim{ height: 145vh; }
-  .etim__line{ font-size: clamp(1.55rem, 8.4vw, 2.35rem); }
+  .etim__line{ font-size: clamp(2rem, 10.5vw, 3rem); }
   .etim__set{ margin: 1rem 0 1.15rem; }
+  .etim .cap{ max-width: 32ch; }
 
   .bleed .ph{ height: clamp(220px, 46svh, 380px); }
 
@@ -575,15 +588,14 @@ tr.us td{ font-weight: 500; }
     <div class="etim__pin">
       <div class="wrap grid">
         <div class="col">
-          <p class="label">Fig. 1 — The name</p>
-          <div class="etim__set" role="img" aria-label="VO from Volkswagen joins CHO from bicho to spell VOCHO.">
+          <div class="etim__set" role="img" aria-label="VO from Volkswagen joins CHO from Bicho to spell VOCHO.">
             <div class="etim__line" id="etimA"><span class="lt" data-keep>V</span><span class="lt" data-keep>O</span><!--
          --><span class="lt">l</span><span class="lt">k</span><span class="lt">s</span><span class="lt">w</span><span class="lt">a</span><span class="lt">g</span><span class="lt">e</span><span class="lt">n</span></div>
-            <div class="etim__line" id="etimB"><span class="lt">b</span><span class="lt">i</span><!--
+            <div class="etim__line" id="etimB"><span class="lt">B</span><span class="lt">i</span><!--
          --><span class="lt" data-keep>C</span><span class="lt" data-keep>H</span><span class="lt" data-keep>O</span></div>
             <div class="etim__line etim__out" aria-hidden="true">VOCHO</div>
           </div>
-          <p class="cap">One account of the word: <em>VO</em> from Volkswagen, <em>cho</em> from <em>bicho</em> — bug. The other holds it is a straight clipping of the marque. Neither has ever been settled.</p>
+          <p class="cap">The affectionate shorthand born from decades of the Beetle’s ubiquity on Mexican roads, where it was manufactured until 2003 — longer than anywhere else in the world.</p>
         </div>
       </div>
     </div>
@@ -881,9 +893,9 @@ tr.us td{ font-weight: 500; }
   function ease(t){ return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
 
   /* ── Fig. 1: VO + CHO collapse together into VOCHO ──
-     Lines are left-aligned, so the maths is plain: dropped letters scale to
-     nothing and give back their advance via a negative margin; line A's
-     keepers hold at x=0 and line B's slide right by exactly their width. */
+     Lines are centered; dropped letters scale away and give back their
+     advance via negative margin. After that, each line shifts toward the
+     shared centre so VO and CHO meet as VOCHO. */
   var etim  = document.getElementById("etim");
   var etimA = document.getElementById("etimA");
   var etimB = document.getElementById("etimB");
@@ -894,13 +906,15 @@ tr.us td{ font-weight: 500; }
     var all = [].slice.call(document.querySelectorAll(".etim__line .lt"));
     all.forEach(function(s){ s.style.transform = ""; s.style.marginRight = ""; s.style.opacity = ""; });
     etimA.style.transform = ""; etimB.style.transform = "";
-    var wa = 0, drop = [];
+    var wa = 0, wb = 0, drop = [];
     all.forEach(function(s){
       s.__w = s.getBoundingClientRect().width;
-      if (s.hasAttribute("data-keep")) { if (s.parentNode === etimA) wa += s.__w; }
-      else drop.push(s);
+      if (s.hasAttribute("data-keep")) {
+        if (s.parentNode === etimA) wa += s.__w;
+        else if (s.parentNode === etimB) wb += s.__w;
+      } else drop.push(s);
     });
-    dims = { wa: wa, gap: etimB.getBoundingClientRect().top - etimA.getBoundingClientRect().top, drop: drop };
+    dims = { wa: wa, wb: wb, gap: etimB.getBoundingClientRect().top - etimA.getBoundingClientRect().top, drop: drop };
   }
 
   function paintEtim(p){
@@ -914,8 +928,8 @@ tr.us td{ font-weight: 500; }
       s.style.opacity = String(1 - e);
     });
     var pm = ease(clamp((p - .54) / .34, 0, 1));
-    etimA.style.transform = "translate(0," + (dims.gap / 2 * pm) + "px)";
-    etimB.style.transform = "translate(" + (dims.wa * pm) + "px," + (-dims.gap / 2 * pm) + "px)";
+    etimA.style.transform = "translate(" + (-dims.wb / 2 * pm) + "px," + (dims.gap / 2 * pm) + "px)";
+    etimB.style.transform = "translate(" + (dims.wa / 2 * pm) + "px," + (-dims.gap / 2 * pm) + "px)";
   }
 
   /* ── header fills white when a dark surface sits behind it ── */
