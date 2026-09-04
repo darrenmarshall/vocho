@@ -378,7 +378,7 @@ tr.us td{ font-weight: 500; }
     --t-h1: clamp(1.2rem, 5.4vw, 1.45rem);
     --t-h2: clamp(1.4rem, 6.8vw, 1.8rem);
     --t-txt: 1.0625rem;
-    --bar-h: calc(1.5rem + 1.2rem + env(safe-area-inset-top, 0px) + 1px);
+    --bar-h: calc(2.85rem + env(safe-area-inset-top, 0px));
   }
 
   body{ overflow-x: clip; }
@@ -390,7 +390,8 @@ tr.us td{ font-weight: 500; }
   }
   .bar{
     gap: .75rem;
-    padding-inline: max(var(--pad), env(safe-area-inset-left, 0px)) max(var(--pad), env(safe-area-inset-right, 0px));
+    padding: .65rem max(var(--pad), env(safe-area-inset-right, 0px)) .65rem max(var(--pad), env(safe-area-inset-left, 0px));
+    padding-top: calc(.65rem + env(safe-area-inset-top, 0px));
   }
 
   .bar__mark{ width: 3.55rem; height: 1.2rem; }
@@ -400,18 +401,25 @@ tr.us td{ font-weight: 500; }
     max-width: calc(100% - 4.1rem);
   }
   .bar__nav a{
+    position: relative;
     letter-spacing: .06em;
     white-space: nowrap;
     font-size: .625rem;
   }
+  .bar__nav a::before{
+    content:"";
+    position: absolute;
+    inset: -.55rem -.2rem;
+  }
 
   .abre{
-    height: clamp(420px, calc(100svh - var(--bar-h) - 1.4rem), 640px);
-    margin: var(--bar-h) .7rem .7rem;
+    height: calc(100svh - var(--bar-h) - 1.35rem);
+    min-height: 420px;
+    margin: var(--bar-h) .65rem .65rem;
     border-radius: .35rem;
   }
   .abre .ph{ background-position: 58% 48%; }
-  .abre__foot{ padding-bottom: 1.35rem; }
+  .abre__foot{ padding-bottom: 1.25rem; }
   .abre__line{ max-width: 18ch; }
   .abre__meta{
     letter-spacing: .08em;
