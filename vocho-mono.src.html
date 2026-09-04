@@ -124,6 +124,8 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
 /* ── measure ─────────────────────────────────────────────── */
 .wrap{ max-width: var(--max); margin: 0 auto; padding-inline: var(--pad); }
 .sec{ padding-block: var(--sec); }
+/* on a page that opens on type rather than a plate, clear the fixed bar */
+.sec--top{ padding-top: calc(var(--sec) + var(--bar-h)); }
 .grid{ display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 clamp(1rem, 2vw, 2rem); }
 
 /* text sits off-centre, never in the middle of the page */
@@ -301,6 +303,11 @@ html.ready .abre__foot{
   color: var(--ink); transition: opacity .25s ease;
 }
 .bar__nav a:hover{ opacity: .55; }
+.bar__nav a[aria-current]{
+  text-decoration: underline;
+  text-underline-offset: .45em;
+  text-decoration-thickness: 1px;
+}
 .bar__toggle{
   display: none;
   flex: 0 0 auto;
@@ -524,6 +531,22 @@ tr.us td{ font-weight: 500; }
   transition: border-color .25s ease;
 }
 .correo:hover{ border-bottom-color: var(--bone); }
+
+/* a way out of a blurb and into the page that carries the argument */
+.mas{
+  display: inline-block;
+  margin-top: clamp(1.4rem, 3vw, 2rem);
+  font-family: var(--sans);
+  font-size: var(--t-lab);
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: .4rem;
+  transition: border-color .25s ease;
+}
+.mas::after{ content: " \2192"; }
+.mas:hover{ border-bottom-color: var(--ink); }
 
 .creditos{ margin-top: clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--line-d); padding-top: clamp(1.5rem,3vw,2.25rem); }
 @media (min-width: 780px){ .creditos{ display: grid; grid-template-columns: repeat(3, 1fr); column-gap: clamp(2rem,4vw,4rem); } }
@@ -861,7 +884,7 @@ html.force-in .label.rv--up::before{ transform: none !important; }
     <span class="bar__burger" aria-hidden="true"><i></i><i></i></span>
   </button>
   <nav class="bar__nav" id="nav" aria-label="Primary">
-    <a href="#premisa">About</a>
+    <a href="/about">About</a>
     <a href="#taller">Spec</a>
     <a href="#vocho-uno">Vocho Uno</a>
     <a href="#contacto">Contact</a>
@@ -906,9 +929,9 @@ html.force-in .label.rv--up::before{ transform: none !important; }
         <p class="label label--ch">About</p>
         <h2>Mexico's most beloved car never really left.</h2>
         <div class="txt after-h2">
-          <p class="lead">The Beetle rolled off the line at Puebla in 1964 and became something its engineers never drew: a piece of Mexican identity.</p>
-          <p>Shortened to <em>vocho</em>, it carried families, taxi fleets, and six decades of street life. It was the car people learned to drive in, the car that got fixed on the kerb, the car that was still on every corner long after the rest of the world had moved on. Production only stopped in 2003, and even then it stopped in Puebla, not anywhere else.</p>
-          <p>Nobody has rebuilt it to the standard the car deserves — <strong>real craft, real engineering, and a story that could only come from here.</strong> So we are building it: one at a time, in the Bajío, with trades that have been here longer than the car has.</p>
+          <p class="lead">The Beetle rolled off the line at Puebla in 1964 and became something its engineers never drew: a piece of Mexican identity. It was still being built there in 2003, longer than anywhere else in the world.</p>
+          <p>Nobody has rebuilt it to the standard the car deserves. <strong>We are, one at a time, in the Bajío, with trades that have been here longer than the car has.</strong></p>
+          <a class="mas" href="/about">The full case</a>
         </div>
       </div>
     </div>
@@ -920,59 +943,7 @@ html.force-in .label.rv--up::before{ transform: none !important; }
     <figcaption class="cap"><b>Plate 1.</b> Rear three-quarter detail. Reference car, as specified — chrome re-plated, glass replaced, bumper irons true to the period.</figcaption>
   </figure>
 
-  <!-- ─────────── THE ABSENCE ─────────── -->
-  <section class="sec" id="ausencia">
-    <div class="wrap grid">
-      <div class="col">
-        <p class="label">The absence</p>
-        <h2>A category with no Latin American voice.</h2>
-        <div class="txt after-h2">
-          <p>ICON, Singer, Everrati and JIA have built serious businesses reviving iconic platforms with modern engineering. Every one of them is based in the US, the UK or Japan, working on Broncos, 911s and Land Cruisers. <strong>None are building the car that means the most to Mexico. None are building in Mexico.</strong></p>
-        </div>
 
-        <dl class="cifras">
-          <div class="cifra"><dt>Zero</dt><dd>Restomod houses at this tier building anywhere in Latin America.</dd></div>
-          <div class="cifra"><dt>21.5 million</dt><dd>Beetles produced — the longest single-model run in the industry, 1938 to 2003.</dd></div>
-          <div class="cifra"><dt>Sixty years</dt><dd>Of accumulated cultural equity in Mexico, already paid for.</dd></div>
-        </dl>
-      </div>
-
-      <div class="col col--wide tbl">
-        <table>
-          <caption>The landscape</caption>
-          <thead>
-            <tr><th scope="col">House</th><th scope="col">Platform</th><th scope="col">Base</th><th scope="col">Cultural roots</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">ICON</th><td>Bronco, Toyota FJ</td><td>USA</td><td>American off-road</td></tr>
-            <tr><th scope="row">Singer</th><td>Porsche 911</td><td>USA / UK</td><td>European sports car</td></tr>
-            <tr><th scope="row">Everrati</th><td>Porsche, Land Rover</td><td>UK</td><td>British motoring</td></tr>
-            <tr><th scope="row">JIA</th><td>Land Rover Defender</td><td>UK</td><td>British motoring</td></tr>
-            <tr class="us"><th scope="row">Vocho</th><td>VW Beetle</td><td>México</td><td>Mexican — unclaimed</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─────────── THE PLACE ─────────── -->
-  <section class="sec" id="lugar">
-    <div class="wrap grid">
-      <div class="col">
-        <p class="label">The place</p>
-        <h2>The place is not the setting. It is the product.</h2>
-        <div class="txt after-h2">
-          <p>Every house in that table works a long way from the car it revives. We are already standing in ours.</p>
-        </div>
-      </div>
-      <div class="col col--wide notas">
-        <div class="nota"><h3>Artisan access</h3><p>Generational leatherwork, weaving and metalwork trades within driving distance — the same hands already on this build.</p></div>
-        <div class="nota"><h3>Cost structure</h3><p>Skilled fabrication labour at a fraction of US and UK restomod-house rates, with no compromise to the finish standard.</p></div>
-        <div class="nota"><h3>Cultural authority</h3><p>A Mexican-built <em>vocho</em>, made in the Bajío, is a claim no shop in California or Oxfordshire can make.</p></div>
-        <div class="nota"><h3>Routes</h3><p>A central Mexico base with workable routes into both the US collector market and the domestic enthusiast market.</p></div>
-      </div>
-    </div>
-  </section>
 
   <!-- ─────────── II · SPEC ─────────── -->
   <section class="sec" id="taller">
@@ -1504,13 +1475,16 @@ html.force-in .label.rv--up::before{ transform: none !important; }
     slice(barNav.querySelectorAll("a")).forEach(function(a){
       a.addEventListener("click", function(e){
         if (!menuMq.matches || !bar.classList.contains("bar--open")) return;
+        var url = new URL(a.href, location.href);
+        /* a link to another page just navigates — close the sheet and let it */
+        if (url.pathname !== location.pathname || !url.hash) { setMenu(false); return; }
         e.preventDefault();
-        var id = a.getAttribute("href");
+        var hash = url.hash;
         setMenu(false);
         requestAnimationFrame(function(){
-          var el = id && document.querySelector(id);
+          var el = document.querySelector(hash);
           if (el) el.scrollIntoView();
-          if (id) history.pushState(null, "", id);
+          history.pushState(null, "", hash);
         });
       });
     });
