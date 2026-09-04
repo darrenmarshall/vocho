@@ -144,6 +144,13 @@ button{ font: inherit; color: inherit; background: none; border: 0; cursor: poin
   color: var(--ink-2);
   margin: 0 0 clamp(1rem, 2vw, 1.6rem);
 }
+/* the four labels that answer to the nav open a chapter: full ink, a
+   longer rule, and a little more weight than the sub-sections under them */
+.label--ch{
+  --rule: 3.4rem;
+  color: var(--ink);
+  font-weight: 600;
+}
 h1, h2, h3{ font-family: var(--sans); font-weight: 500; letter-spacing: -.014em; margin: 0; }
 h2{ font-size: var(--t-h2); line-height: 1.14; max-width: 20ch; text-wrap: balance; }
 h3{ font-size: var(--t-h3); line-height: 1.25; }
@@ -651,6 +658,7 @@ html.force-in .label.rv--up::before{ transform: none !important; }
     --rise: 1.1rem;
     --rule: 1.5rem;
   }
+  .label--ch{ --rule: 2.3rem; }
 
   body{ overflow-x: clip; }
 
@@ -890,11 +898,11 @@ html.force-in .label.rv--up::before{ transform: none !important; }
     </div>
   </section>
 
-  <!-- ─────────── THE PREMISE ─────────── -->
+  <!-- ─────────── I · ABOUT ─────────── -->
   <section class="sec" id="premisa">
     <div class="wrap grid">
       <div class="col">
-        <p class="label">The premise</p>
+        <p class="label label--ch">About</p>
         <h2>Mexico's most beloved car never really left.</h2>
         <div class="txt after-h2">
           <p class="lead">The Beetle rolled off the line at Puebla in 1964 and became something its engineers never drew: a piece of Mexican identity.</p>
@@ -946,14 +954,33 @@ html.force-in .label.rv--up::before{ transform: none !important; }
     </div>
   </section>
 
-  <!-- ─────────── THE BUILD ─────────── -->
+  <!-- ─────────── THE PLACE ─────────── -->
+  <section class="sec" id="lugar">
+    <div class="wrap grid">
+      <div class="col">
+        <p class="label">The place</p>
+        <h2>The place is not the setting. It is the product.</h2>
+        <div class="txt after-h2">
+          <p>Every house in that table works a long way from the car it revives. We are already standing in ours.</p>
+        </div>
+      </div>
+      <div class="col col--wide notas">
+        <div class="nota"><h3>Artisan access</h3><p>Generational leatherwork, weaving and metalwork trades within driving distance — the same hands already on this build.</p></div>
+        <div class="nota"><h3>Cost structure</h3><p>Skilled fabrication labour at a fraction of US and UK restomod-house rates, with no compromise to the finish standard.</p></div>
+        <div class="nota"><h3>Cultural authority</h3><p>A Mexican-built <em>vocho</em>, made in the Bajío, is a claim no shop in California or Oxfordshire can make.</p></div>
+        <div class="nota"><h3>Routes</h3><p>A central Mexico base with workable routes into both the US collector market and the domestic enthusiast market.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── II · SPEC ─────────── -->
   <section class="sec" id="taller">
     <div class="wrap grid">
       <div class="col">
-        <p class="label">The build</p>
+        <p class="label label--ch">Spec</p>
         <h2>Every panel off. Nothing left to guesswork.</h2>
         <div class="txt after-h2">
-          <p>One car at a time, in a single queue. The exterior reads exactly as it should. The platform underneath does not.</p>
+          <p>One car at a time, in a single queue. Four stages, in order, and nothing moves to the next until the one before it is right.</p>
         </div>
       </div>
 
@@ -982,14 +1009,35 @@ html.force-in .label.rv--up::before{ transform: none !important; }
     </div>
   </section>
 
-  <!-- ─────────── THE INTERIOR ─────────── -->
+  <!-- ─────────── THE COMMISSION ─────────── -->
+  <section class="sec" id="encargo">
+    <div class="wrap grid">
+      <div class="col">
+        <p class="label">The commission</p>
+        <h2>Low volume, by design.</h2>
+        <div class="txt after-h2">
+          <p>Scarcity and finish standard set the price, not throughput. Every car is spec'd with its owner — colour, hide, textile, powertrain configuration — and photographed through every stage of the build.</p>
+        </div>
+      </div>
+
+      <div class="col col--wide terminos">
+        <div class="termino"><dt>Production</dt><dd class="v">6–15</dd><dd class="n">Builds a year at full capacity, one car in the queue at a time.</dd></div>
+        <div class="termino"><dt>Commission</dt><dd class="v">$60–100K</dd><dd class="n">Target per build, USD, specification dependent.</dd></div>
+        <div class="termino"><dt>First delivery</dt><dd class="v">12 months</dd><dd class="n">From first commission to the first car leaving San Miguel.</dd></div>
+        <div class="termino"><dt>Delivery</dt><dd class="v">Bajío</dd><dd class="n">Out of San Miguel de Allende, into the US collector market or the domestic Mexican market.</dd></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── III · VOCHO UNO ─────────── -->
   <section class="sec" id="vocho-uno">
     <div class="wrap grid">
       <div class="col">
-        <p class="label">The interior</p>
-        <h2>The craft is the argument.</h2>
+        <p class="label label--ch">Vocho Uno</p>
+        <h2>The first car, and the standard for every one after.</h2>
         <div class="txt after-h2">
-          <p>Hand-woven palm on the dash. Saddle leather where vinyl was. Regional weaving set into the seats, from the same trades the Bajío has run for generations. This is where “built in San Miguel” stops being an address and becomes the product itself.</p>
+          <p class="lead">Vocho Uno is the reference build — the car the queue is measured against. Two things make it: what your hands touch, and what moves it.</p>
+          <p>Hand-woven palm on the dash. Saddle leather where vinyl was. Regional weaving set into the seats, from the same trades the Bajío has run for generations. It is the part of the car an owner touches every day, and the part that could only have been made here.</p>
         </div>
       </div>
 
@@ -1068,49 +1116,13 @@ html.force-in .label.rv--up::before{ transform: none !important; }
     <figcaption class="cap"><b>Plate 4.</b> Cabin, driver's side. Palm across the dash face, saddle hide on every touched surface, regional weaving inlaid into the seats.</figcaption>
   </figure>
 
-  <!-- ─────────── THE PLACE ─────────── -->
-  <section class="sec" id="lugar">
-    <div class="wrap grid">
-      <div class="col">
-        <p class="label">The place</p>
-        <h2>The place is not the setting. It is the product.</h2>
-      </div>
-      <div class="col col--wide notas">
-        <div class="nota"><h3>Artisan access</h3><p>Generational leatherwork, weaving and metalwork trades within driving distance — the same hands already on this build.</p></div>
-        <div class="nota"><h3>Cost structure</h3><p>Skilled fabrication labour at a fraction of US and UK restomod-house rates, with no compromise to the finish standard.</p></div>
-        <div class="nota"><h3>Cultural authority</h3><p>A Mexican-built <em>vocho</em>, made in the Bajío, is a claim no shop in California or Oxfordshire can make.</p></div>
-        <div class="nota"><h3>Routes</h3><p>A central Mexico base with workable routes into both the US collector market and the domestic enthusiast market.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─────────── THE COMMISSION ─────────── -->
-  <section class="sec" id="encargo">
-    <div class="wrap grid">
-      <div class="col">
-        <p class="label">The commission</p>
-        <h2>Low volume, by design.</h2>
-        <div class="txt after-h2">
-          <p>Scarcity and finish standard set the price, not throughput. Every car is spec'd with its owner — colour, hide, textile, powertrain configuration — and photographed through every stage of the build.</p>
-        </div>
-      </div>
-
-      <div class="col col--wide terminos">
-        <div class="termino"><dt>Production</dt><dd class="v">6–15</dd><dd class="n">Builds a year at full capacity, one car in the queue at a time.</dd></div>
-        <div class="termino"><dt>Commission</dt><dd class="v">$60–100K</dd><dd class="n">Target per build, USD, specification dependent.</dd></div>
-        <div class="termino"><dt>First delivery</dt><dd class="v">12 months</dd><dd class="n">From first commission to the first car leaving San Miguel.</dd></div>
-        <div class="termino"><dt>Delivery</dt><dd class="v">Bajío</dd><dd class="n">Out of San Miguel de Allende, into the US collector market or the domestic Mexican market.</dd></div>
-      </div>
-    </div>
-  </section>
-
 </main>
 
-<!-- ─────────── COLOPHON ─────────── -->
+<!-- ─────────── IV · CONTACT ─────────── -->
 <footer class="colofon" id="contacto">
   <div class="wrap grid">
     <div class="col">
-      <p class="label">Enquiries</p>
+      <p class="label label--ch">Contact</p>
       <h2>Commissions are taken directly.</h2>
       <div class="txt after-h2">
         <p>Vocho opens with the Beetle. A Combi line and a truck line follow. The first car is in build; the queue for the second is open.</p>
