@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Schibsted+Grotesk:wght@400..700&display=swap">
 
 <!-- the opening plate is the LCP: fetch the right cut of it before the CSS asks -->
-<link rel="preload" as="image" type="image/webp" href="images/hero-sm.webp" media="(max-width: 720px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" href="images/hero-road.webp" media="(max-width: 720px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" href="images/hero.webp" media="(min-width: 721px)" fetchpriority="high">
 
 <script>
@@ -31,7 +31,7 @@
   --i-primero: url("primero.jpg");
 }
 @media (max-width: 720px){
-  :root{ --i-hero: url("images/hero-sm.jpg"); }
+  :root{ --i-hero: url("images/hero-road.jpg"); }
 }
 @supports (background-image: image-set(url("images/hero.webp") type("image/webp") 1x)){
   :root{
@@ -43,7 +43,7 @@
   }
   @media (max-width: 720px){
     :root{
-      --i-hero:    image-set(url("images/hero-sm.webp")    type("image/webp") 1x);
+      --i-hero:    image-set(url("images/hero-road.webp")  type("image/webp") 1x);
       --i-plate:   image-set(url("images/plate-sm.webp")   type("image/webp") 1x);
       --i-cabin:   image-set(url("images/cabin-sm.webp")   type("image/webp") 1x);
       --i-shelf:   image-set(url("images/shelf-sm.webp")   type("image/webp") 1x);
@@ -727,7 +727,20 @@ html.force-in .label.rv--up::before{ transform: none !important; }
     margin: var(--bar-h) .65rem .65rem;
     border-radius: .35rem;
   }
-  .abre .ph{ background-position: 58% 48%; }
+  .abre .ph{ background-position: 50% 50%; }
+  /* The desert plate carries a lit foreground — bumper, chrome, a white
+     licence plate — where the street plate carried shadow. The opening line
+     needs a deeper, taller scrim to sit on than the wide crop does. */
+  .abre::after{
+    background:
+      linear-gradient(to bottom, rgba(16,15,12,.44) 0%, rgba(16,15,12,.10) 15%, rgba(16,15,12,0) 28%),
+      linear-gradient(to top,
+        rgba(16,15,12,.92) 0%,
+        rgba(16,15,12,.82) 16%,
+        rgba(16,15,12,.62) 29%,
+        rgba(16,15,12,.28) 45%,
+        rgba(16,15,12,0)   67%);
+  }
   .abre__foot{ padding-bottom: 1.25rem; }
   .abre__line{ max-width: 18ch; }
   .abre__meta{
@@ -826,7 +839,7 @@ html.force-in .label.rv--up::before{ transform: none !important; }
 
   <!-- ─────────── OPENING PLATE ─────────── -->
   <section class="abre">
-    <div class="abre__media"><div class="ph" role="img" aria-label="A black Volkswagen Beetle with chrome bumpers, whitewall tyres and a single tan suitcase on the roof rack, parked on a cobbled street in San Miguel de Allende at golden hour. The plate reads VOCHO 1 — San Miguel Customs."></div></div>
+    <div class="abre__media"><div class="ph" role="img" aria-label="A black Volkswagen Beetle with chrome bumpers, whitewall tyres and a single tan suitcase on the roof rack, parked on a cobbled street in San Miguel de Allende at golden hour. The plate reads VOCHO 1 — San Miguel Customs." data-alt-sm="A black Volkswagen Beetle head-on on a dirt road in the high desert at sunset, chrome bumper and roof rack, woven seat covers visible through the windscreen, with low hills and Joshua trees behind it. The plate reads VOCHO 1 — Guanajuato."></div></div>
     <div class="abre__foot">
       <p class="abre__line">Body-off restomod and electric conversion, built where the car became an icon.</p>
       <p class="abre__meta">San Miguel de Allende · Guanajuato · México</p>
@@ -1396,6 +1409,17 @@ html.force-in .label.rv--up::before{ transform: none !important; }
   var lastY     = window.scrollY || 0;
   var away      = false;
 
+
+  /* Two photographs open the page — a cobbled street on a wide screen, a
+     desert road on a phone — so the description has to follow the crop. */
+  var heroPh  = document.querySelector(".abre .ph");
+  var heroAlt = heroPh && heroPh.getAttribute("aria-label");
+  var heroSm  = heroPh && heroPh.getAttribute("data-alt-sm");
+  function syncHeroAlt(){
+    if (!heroPh || !heroSm) return;
+    heroPh.setAttribute("aria-label", menuMq.matches ? heroSm : heroAlt);
+  }
+
   function overlaps(a, b){
     return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
   }
@@ -1514,6 +1538,7 @@ html.force-in .label.rv--up::before{ transform: none !important; }
     clearTimeout(rt);
     rt = setTimeout(function(){
       if (!menuMq.matches) setMenu(false);
+      syncHeroAlt();
       if (!reduce) {
         slice(document.querySelectorAll(".has-lines")).forEach(function(el){
           if (el.__w && Math.abs(el.offsetWidth - el.__w) > 1) splitLines(el);
@@ -1528,6 +1553,7 @@ html.force-in .label.rv--up::before{ transform: none !important; }
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function(){ measure(); edge(); onScroll(); });
   }
+  syncHeroAlt();
   measure();
   edge();
   onScroll();
