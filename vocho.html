@@ -226,7 +226,7 @@ html.force-in .abre__foot{ opacity: 1 !important; transform: none !important; }
 .abre__line{
   font-family: var(--sans); font-weight: 500;
   font-size: var(--t-h1); line-height: 1.24; letter-spacing: -.012em;
-  max-width: 24ch; margin: 0;
+  max-width: 66%; margin: 0;
   text-wrap: balance;
 }
 .abre__meta{
@@ -627,7 +627,8 @@ tr.us td{ font-weight: 500; }
   html.js .abre__foot{ opacity: 1; }
   html.js .abre__meta{ opacity: 0; }
   html.ready .abre__meta{ opacity: 1; transition: opacity .8s ease .62s; }
-  .abre__line{ max-width: 21ch; }
+  /* the card is narrow, so the line runs wider here than on a wide screen */
+  .abre__line{ max-width: 80%; }
   .abre__meta{
     letter-spacing: .08em;
     line-height: 1.45;
