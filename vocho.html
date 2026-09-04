@@ -203,6 +203,44 @@ h3{ font-size: var(--t-h3); line-height: 1.25; }
   color: var(--ink); transition: opacity .25s ease;
 }
 .bar__nav a:hover{ opacity: .55; }
+.bar__toggle{
+  display: none;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 2;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: -.7rem -.55rem -.7rem 0;
+  place-items: center;
+  color: inherit;
+}
+.bar__burger{
+  display: block;
+  width: 1.15rem;
+  height: .7rem;
+  position: relative;
+}
+.bar__burger i{
+  position: absolute; left: 0; right: 0;
+  height: 1px;
+  background: currentColor;
+  transition: transform .28s ease, top .28s ease;
+}
+.bar__burger i:first-child{ top: .12rem; }
+.bar__burger i:last-child{ top: .52rem; }
+.bar--open .bar__burger i:first-child{ top: .32rem; transform: rotate(45deg); }
+.bar--open .bar__burger i:last-child{ top: .32rem; transform: rotate(-45deg); }
+.nav-scrim{
+  position: fixed; inset: 0; z-index: 35;
+  padding: 0; border: 0; cursor: pointer;
+  background: rgba(16,15,12,.28);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .28s ease, visibility .28s ease;
+}
+.nav-scrim.is-on{
+  opacity: 1; visibility: visible; pointer-events: auto;
+}
+html.nav-lock, html.nav-lock body{ overflow: hidden; }
 
 /* ── figure 1: the etymology, set as a book figure ───────── */
 .fig{
@@ -393,24 +431,48 @@ tr.us td{ font-weight: 500; }
     padding: .65rem max(var(--pad), env(safe-area-inset-right, 0px)) .65rem max(var(--pad), env(safe-area-inset-left, 0px));
     padding-top: calc(.65rem + env(safe-area-inset-top, 0px));
   }
+  .bar--open{
+    background: #fff;
+    border-bottom-color: var(--line);
+  }
 
   .bar__mark{ width: 3.55rem; height: 1.2rem; }
+  .bar__toggle{ display: grid; }
+
   .bar__nav{
-    flex-wrap: nowrap;
-    gap: .2rem .7rem;
-    max-width: calc(100% - 4.1rem);
+    position: fixed;
+    top: var(--bar-h); left: 0; right: 0;
+    z-index: 41;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-width: none;
+    margin: 0;
+    padding: .35rem max(var(--pad), env(safe-area-inset-right, 0px)) 1.1rem max(var(--pad), env(safe-area-inset-left, 0px));
+    padding-bottom: calc(1.1rem + env(safe-area-inset-bottom, 0px));
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    transform: translate3d(0, -.4rem, 0);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .28s ease, transform .28s cubic-bezier(.22,.7,.3,1), visibility .28s ease;
+  }
+  .bar--open .bar__nav{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
   }
   .bar__nav a{
-    position: relative;
-    letter-spacing: .06em;
+    font-size: .8125rem;
+    letter-spacing: .1em;
     white-space: nowrap;
-    font-size: .625rem;
+    padding: 1.05rem 0;
+    border-bottom: 1px solid var(--line);
   }
-  .bar__nav a::before{
-    content:"";
-    position: absolute;
-    inset: -.55rem -.2rem;
-  }
+  .bar__nav a:last-child{ border-bottom: 0; }
 
   .abre{
     height: calc(100svh - var(--bar-h) - 1.35rem);
@@ -454,8 +516,6 @@ tr.us td{ font-weight: 500; }
 }
 
 @media (max-width: 380px){
-  .bar__nav{ gap: .15rem .55rem; }
-  .bar__nav a{ letter-spacing: .04em; font-size: .5938rem; }
   .abre__meta{ font-size: .625rem; }
 }
 
@@ -469,13 +529,17 @@ tr.us td{ font-weight: 500; }
 
 <header class="bar" id="bar">
   <a class="bar__mark" href="#arriba" aria-label="Vocho"></a>
-  <nav class="bar__nav" aria-label="Primary">
+  <button class="bar__toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+    <span class="bar__burger" aria-hidden="true"><i></i><i></i></span>
+  </button>
+  <nav class="bar__nav" id="nav" aria-label="Primary">
     <a href="#premisa">About</a>
     <a href="#taller">Spec</a>
     <a href="#vocho-uno">Vocho Uno</a>
     <a href="#contacto">Contact</a>
   </nav>
 </header>
+<button class="nav-scrim" id="navScrim" type="button" tabindex="-1" aria-label="Close menu"></button>
 
 <main id="arriba">
 
@@ -784,6 +848,47 @@ tr.us td{ font-weight: 500; }
     pending.forEach(function(el){ io.observe(el); });
     setTimeout(function(){ pending.forEach(function(el){ el.classList.remove("oculto"); }); }, 6000);
   }
+
+  /* ── mobile nav ── */
+  var bar = document.getElementById("bar");
+  var barToggle = document.getElementById("navToggle");
+  var barNav = document.getElementById("nav");
+  var navScrim = document.getElementById("navScrim");
+  var menuMq = matchMedia("(max-width: 720px)");
+  function setMenu(open){
+    if (!bar || !barToggle) return;
+    bar.classList.toggle("bar--open", open);
+    if (open) bar.classList.add("bar--solid");
+    barToggle.setAttribute("aria-expanded", String(open));
+    barToggle.setAttribute("aria-label", open ? "Close menu" : "Menu");
+    document.documentElement.classList.toggle("nav-lock", open);
+    if (navScrim) navScrim.classList.toggle("is-on", open);
+  }
+  if (barToggle) {
+    barToggle.addEventListener("click", function(){
+      setMenu(!bar.classList.contains("bar--open"));
+    });
+  }
+  if (navScrim) navScrim.addEventListener("click", function(){ setMenu(false); });
+  if (barNav) {
+    [].slice.call(barNav.querySelectorAll("a")).forEach(function(a){
+      a.addEventListener("click", function(e){
+        if (!menuMq.matches || !bar.classList.contains("bar--open")) return;
+        e.preventDefault();
+        var id = a.getAttribute("href");
+        setMenu(false);
+        requestAnimationFrame(function(){
+          var el = id && document.querySelector(id);
+          if (el) el.scrollIntoView();
+          if (id) history.pushState(null, "", id);
+        });
+      });
+    });
+  }
+  addEventListener("keydown", function(e){
+    if (e.key === "Escape" && bar && bar.classList.contains("bar--open")) setMenu(false);
+  });
+  addEventListener("resize", function(){ if (!menuMq.matches) setMenu(false); });
 
   /* ── materials index ── */
   var IMGS = {}, cs = getComputedStyle(document.documentElement);
