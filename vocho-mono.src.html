@@ -172,8 +172,13 @@ h3{ font-size: var(--t-h3); line-height: 1.25; }
   padding: .85rem var(--pad);
   font-family: var(--sans);
   color: var(--ink);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color .28s ease, border-color .28s ease;
+}
+.bar--solid{
   background: #fff;
-  border-bottom: 1px solid var(--line);
+  border-bottom-color: var(--line);
 }
 .bar__mark{
   display: block;
@@ -745,13 +750,29 @@ tr.us td{ font-weight: 500; }
     etimB.style.transform = "translate(" + (dims.wa * pm) + "px," + (-dims.gap / 2 * pm) + "px)";
   }
 
-  /* ── header picks up the paper once past the opening plate ── */
+  /* ── header fills white when a dark surface sits behind it ── */
   var bar = document.getElementById("bar"), tick = false;
+  var barMark = bar && bar.querySelector(".bar__mark");
+  var barNav = bar && bar.querySelector(".bar__nav");
+  var darks = [].slice.call(document.querySelectorAll(".abre, .bleed .ph, .colofon"));
+  function overlaps(a, b){
+    return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+  }
+  function syncBar(){
+    if (!bar || !barMark || !barNav) return;
+    var probes = [barMark.getBoundingClientRect(), barNav.getBoundingClientRect()];
+    var onDark = darks.some(function(el){
+      var r = el.getBoundingClientRect();
+      return probes.some(function(p){ return overlaps(p, r); });
+    });
+    bar.classList.toggle("bar--solid", onDark);
+  }
   function onScroll(){
     if (tick) return;
     tick = true;
     requestAnimationFrame(function(){
       tick = false;
+      syncBar();
       if (etim && !reduce){
         var r = etim.getBoundingClientRect();
         paintEtim(clamp(-r.top / ((etim.offsetHeight - innerHeight) || 1), 0, 1));

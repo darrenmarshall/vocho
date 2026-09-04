@@ -172,8 +172,13 @@ h3{ font-size: var(--t-h3); line-height: 1.25; }
   padding: .85rem var(--pad);
   font-family: var(--sans);
   color: var(--ink);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color .28s ease, border-color .28s ease;
+}
+.bar--solid{
   background: #fff;
-  border-bottom: 1px solid var(--line);
+  border-bottom-color: var(--line);
 }
 .bar__mark{
   display: block;
